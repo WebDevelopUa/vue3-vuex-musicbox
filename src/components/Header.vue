@@ -27,15 +27,22 @@
 </template>
 
 <script>
+
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'Header',
   methods: {
-    toggleAuthModal() {
-      console.log('... toggleAuthModal() ...', this.$store.state.authModalShow);
-      // this.$store.state.authModalShow = !this.$store.state.authModalShow;
-      // call 'toggleAuthModal' from the store
-      this.$store.commit('toggleAuthModal');
-    },
+    ...mapMutations(['toggleAuthModal']),
+
+    // replaced with mapMutations from 'vuex'
+    // toggleAuthModal() {
+    //   console.log('... toggleAuthModal() ...', this.$store.state.authModalShow);
+    //   // this.$store.state.authModalShow = !this.$store.state.authModalShow;
+    //   // call 'toggleAuthModal' from the store
+    //   this.$store.commit('toggleAuthModal');
+    // },
+
   },
 };
 </script>
