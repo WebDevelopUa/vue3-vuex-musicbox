@@ -38,6 +38,13 @@ vue --version
 * Ready on [localhost](http://localhost:8000)
 * Create new Project or `vue create .`
 
+### Tailwind CSS
+
+* Install Tailwind via Vue UI Plugins: [http://localhost:8000/plugins/add](http://localhost:8000/plugins/add)
+  => `vue-cli-plugin-tailwind` => Generate tailwind.config.js => minimal
+* [Install Tailwind CSS with Vue](https://tailwindcss.com/docs/guides/vue-3-vite)
+* Install Tailwind via npm `npm install -D tailwindcss@latest `
+
 -------------------------
 
 # musicbox
