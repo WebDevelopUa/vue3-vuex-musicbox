@@ -23,7 +23,7 @@
 
             <!-- Modal Close Button class 'modal-close' contain close button -->
             <div class="modal-close cursor-pointer z-50"
-            @click.prevent="toggleAuthModal"
+                 @click.prevent="toggleAuthModal"
             >
               <i class="fas fa-times"></i>
             </div>
@@ -136,14 +136,16 @@
 
 <script>
 
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'Auth',
   computed: {
-    authModalShow() {
-      return this.$store.getters.authModalShow;
-    },
+    // replaced with 'mapState' from vuex
+    // authModalShow() {
+    //   return this.$store.getters.authModalShow;
+    // },
+    ...mapState(['authModalShow']),
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),

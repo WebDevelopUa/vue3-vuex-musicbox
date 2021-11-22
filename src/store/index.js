@@ -11,9 +11,10 @@ export default createStore({
     },
   },
   getters: {
-    authModalShow: (state) => {
-      console.log('... getter ...', state);
-      return state.authModalShow;
-    },
+    // removed / replaced with 'mapState' from vuex
+    // authModalShow: (state) => {
+    //   console.log('... getter ...', state);
+    //   return state.authModalShow;
+    // },
   },
 });
