@@ -1,7 +1,9 @@
 Vue v3 Music Box Web App
 ---
 
-[DEMO](https://vue3-vuex-musicbox.vercel.app)
+### [DEMO](https://vue3-vuex-musicbox.vercel.app)
+
+### [Dashboard](http://localhost:8000/dashboard)
 
 ------------
 
