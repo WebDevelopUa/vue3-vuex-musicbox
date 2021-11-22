@@ -1,7 +1,8 @@
 <template>
   <!-- Modal window class 'hidden' -->
+  <!--  :class="{hidden: !authModalShow}"-->
   <div class="fixed z-10 inset-0 overflow-y-auto"
-       :class="{hidden: !authModalShow}"
+       :class="{hidden: !modal}"
        id="modal">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center
       sm:block sm:p-0">
@@ -145,7 +146,13 @@ export default {
     // authModalShow() {
     //   return this.$store.getters.authModalShow;
     // },
-    ...mapState(['authModalShow']),
+
+    // replaced with alias 'modal'
+    // ...mapState(['authModalShow']),
+
+    ...mapState({
+      modal: 'authModalShow',
+    }),
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),

@@ -73,12 +73,14 @@ export default createStore({
 
 ```
 
-* Access to store state - `this.$store.state.authModalShow` - is not recommended!
-* Mutations - changing / updating the state - appears in a form of a function; can be used in any component
-* Map Mutations - Mappers - extract the mutation function from the store object
-* Getters - like computed properties - allows accessing state properties from the store; accessible in all components;
+* **Access to store state** - `this.$store.state.authModalShow` - is not recommended!
+* **Mutations** - changing / updating the state - appears in a form of a function; can be used in any component
+* **Map Mutations** - Mappers - extract the mutation function from the store object
+* **Getters** - like computed properties - allows accessing state properties from the store; accessible in all components;
   only updates when the state changes; better for performing a calculation on state property
-* Mapping the state - better for retrieving a state property
+* **Mapping the state** - better for retrieving a state property
+* **Alias** - use `modal` as `authModalShow` state property `...mapState({ modal: 'authModalShow', })`
+
 
 -------------------------
 
