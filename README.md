@@ -47,14 +47,33 @@ vue --version
 * [Install Tailwind CSS with Vue](https://tailwindcss.com/docs/guides/vue-3-vite)
 * Install Tailwind via npm `npm install -D tailwindcss@latest `
 
-
 ### Vuex - (Vue Plugin)
 
 ``` 
 yarn add vuex
 ```
 
-Vuex Store => src/main.js => `app.use(store)` => src/store/index.js
+* Vuex Store => src/main.js => `app.use(store)` => src/store/index.js
+
+```js
+
+import {createStore} from 'vuex';
+
+export default createStore({
+    state: {
+        authModalShow: false,
+    },
+    mutations: {
+        toggleAuthModal: (state) => {
+            state.authModalShow = !state.authModalShow;
+        },
+    },
+});
+
+
+```
+
+* Mutations - changing / updating the state - appears in a form of a function; can be used in any component
 
 -------------------------
 
