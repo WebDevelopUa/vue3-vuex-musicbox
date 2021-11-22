@@ -47,6 +47,15 @@ vue --version
 * [Install Tailwind CSS with Vue](https://tailwindcss.com/docs/guides/vue-3-vite)
 * Install Tailwind via npm `npm install -D tailwindcss@latest `
 
+
+### Vuex - (Vue Plugin)
+
+``` 
+yarn add vuex
+```
+
+Vuex Store => src/main.js => `app.use(store)` => src/store/index.js
+
 -------------------------
 
 # musicbox
