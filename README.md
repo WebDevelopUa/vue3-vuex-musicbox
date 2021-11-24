@@ -95,6 +95,7 @@ yarn cache clean --mirror
 yarn cache clean --all
 
 yarn add vee-validate@next
+yarn add vee-validate/rules
 ```
 
 or
@@ -104,6 +105,7 @@ vue ui
 ```
 
 [http://localhost:8000/dependencies](http://localhost:8000/dependencies) => Install => vee validate
+[http://localhost:8000/dependencies](http://localhost:8000/dependencies) => Install => vee validate/rules
 
 Register:
 
