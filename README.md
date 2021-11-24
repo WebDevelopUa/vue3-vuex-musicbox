@@ -11,7 +11,7 @@ Vue v3 Music Box Web App
 
 * [Node.js](https://nodejs.org/) >=16.10
 * [Yarn](https://classic.yarnpkg.com/lang/en/) >= 1.22.17
-* @vue/cli >= l4.5.15
+* @vue/cli >= 4.5.15
 * [vee-validate v4](https://vee-validate.logaretm.com/v4/guide/components/validation)
 
 ------------
