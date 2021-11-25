@@ -84,74 +84,97 @@
           <!-- #2 Registration Form (vee-validated) -->
           <VeeForm v-show="tab === 'register'"
                    :validation-schema="schema"
+                   @submit="register"
           >
 
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
-              <VeeField                 type="text"
+              <VeeField type="text"
                         name="name"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded"
                         placeholder="Enter Name"
               />
-              <ErrorMessage name="name"
-                            class="text-red-600"
-              />
-
+              <ErrorMessage name="name" class="text-red-600"/>
             </div>
+
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input type="email"
-                     class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+              <VeeField name="email"
+                        type="email"
+                        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded"
-                     placeholder="Enter Email"/>
+                        placeholder="Enter Email"/>
+              <ErrorMessage name="email" class="text-red-600"/>
             </div>
+
             <!-- Age -->
             <div class="mb-3">
               <label class="inline-block mb-2">Age</label>
-              <input type="number"
-                     class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+              <VeeField name="age"
+                        type="number"
+                        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded"/>
+              <ErrorMessage name="age" class="text-red-600"/>
             </div>
+
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input type="password"
-                     class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+              <VeeField name="password"
+                        type="password"
+                        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded"
-                     placeholder="Password"/>
+                        placeholder="Password"/>
+              <ErrorMessage name="password" class="text-red-600"/>
             </div>
+
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
-              <input type="password"
-                     class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+              <VeeField name="confirm_password"
+                        type="password"
+                        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded"
-                     placeholder="Confirm Password"/>
+                        placeholder="Confirm Password"/>
+              <ErrorMessage name="confirmPassword" class="text-red-600"/>
             </div>
+
             <!-- Country -->
             <div class="mb-3">
               <label class="inline-block mb-2">Country</label>
-              <select
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+              <VeeField as="select"
+                        name="country"
+                        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded">
                 <option value="USA">USA</option>
                 <option value="Mexico">Mexico</option>
                 <option value="Germany">Germany</option>
-              </select>
+                <option value="Forbidden">Forbidden</option>
+              </VeeField>
+
+              <ErrorMessage name="country" class="text-red-600"/>
             </div>
-            <!-- TOS -->
+
+            <!-- Terms of Services -->
             <div class="mb-3 pl-6">
-              <input type="checkbox" class="w-4 h-4 float-left -ml-6 mt-1 rounded"/>
+              <VeeField name="tos"
+                        value="1"
+                        type="checkbox"
+                        class="w-4 h-4 float-left -ml-6 mt-1 rounded"/>
               <label class="inline-block">Accept terms of service</label>
+              <ErrorMessage name="tos" class="text-red-600 block"/>
             </div>
+
+            <!-- Submit  -->
             <button type="submit"
                     class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition
                 hover:bg-purple-700">
               Submit
             </button>
+
           </VeeForm>
 
         </div>
@@ -170,13 +193,13 @@ export default {
     return {
       tab: ['login', 'register'],
       schema: {
-        name: 'required|min:3|max:100|alpha_spaces',
-        email: '',
-        age: '',
-        password: '',
-        confirm_password: '',
-        country: '',
-        tos: '',
+        name: 'required|min:3|max:100|alphaSpaces',
+        email: 'required|min:3|max:100|email',
+        age: 'required|minValue:18|maxValue:100',
+        password: 'required|min:3|max:100',
+        confirm_password: 'confirmed:@password',
+        country: 'required|forbidden:Forbidden',
+        tos: 'required',
       },
     };
   },
@@ -195,6 +218,10 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),
+    // no 'v-model' to bind values of inputs fields, vee-validate instead
+    register(values) {
+      console.log('... register(values) ... :', values);
+    },
   },
 };
 </script>

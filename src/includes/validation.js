@@ -9,6 +9,11 @@ import {
   min,
   max,
   alpha_spaces as alphaSpaces,
+  email,
+  min_value as minValue,
+  max_value as maxValue,
+  confirmed,
+  not_one_of as forbidden,
 } from '@vee-validate/rules';
 
 export default {
@@ -22,6 +27,11 @@ export default {
     defineRule('required', required);
     defineRule('min', min);
     defineRule('max', max);
-    defineRule('alpha_spaces', alphaSpaces);
+    defineRule('alphaSpaces', alphaSpaces);
+    defineRule('email', email);
+    defineRule('minValue', minValue);
+    defineRule('maxValue', maxValue);
+    defineRule('confirmed', confirmed);
+    defineRule('forbidden', forbidden);
   },
 };
