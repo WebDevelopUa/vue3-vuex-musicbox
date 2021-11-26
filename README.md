@@ -114,6 +114,14 @@ Register:
 
 > [V4 of vee-validate is for Vue 3 ONLY and has very different API from V3 (which is for Vue 2 ONLY)](https://stackoverflow.com/questions/64663082/install-vee-validate-under-vuejs3-i-got-error)
 
+
+Trigger validation:
+
+- after the **change** event
+- if thr **v-model** directive is applied to an input, when the model is changed
+- after the blur event
+- after form submission
+
 -------------------------
 
 # musicbox
