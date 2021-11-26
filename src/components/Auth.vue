@@ -85,6 +85,7 @@
           <VeeForm v-show="tab === 'register'"
                    :validation-schema="schema"
                    @submit="register"
+                   :initial-values="userData"
           >
 
             <!-- Name -->
@@ -121,13 +122,23 @@
             </div>
 
             <!-- Password -->
+            <!-- output multiple errors at once in case of: if Password invalid - Confirm password invalid too -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <VeeField name="password"
-                        type="password"
-                        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-                  duration-500 focus:outline-none focus:border-black rounded"
-                        placeholder="Password"/>
+              <!-- :bails="false" not to use extra strategy -->
+              <VeeField :bails="false"
+                        v-slot="{field, errors}"
+                        name="password">
+                <input
+                  type="password" v-bind="field"
+                  class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
+                duration-500 focus:outline-none focus:border-black rounded"
+                  placeholder="Password"/>
+                <div class="text-red-300" v-for="error in errors" :key="error">
+                  {{ error }}
+                </div>
+              </VeeField>
+
               <ErrorMessage name="password" class="text-red-600"/>
             </div>
 
@@ -149,6 +160,7 @@
                         name="country"
                         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
                   duration-500 focus:outline-none focus:border-black rounded">
+                <option value="Brazil">Brazil</option>
                 <option value="USA">USA</option>
                 <option value="Mexico">Mexico</option>
                 <option value="Germany">Germany</option>
@@ -197,9 +209,15 @@ export default {
         email: 'required|min:3|max:100|email',
         age: 'required|minValue:18|maxValue:100',
         password: 'required|min:3|max:100',
-        confirm_password: 'confirmed:@password',
-        country: 'required|forbidden:Forbidden',
-        tos: 'required',
+        confirm_password: 'passwordMismatch:@password',
+        country: 'required|countryExcluded:Forbidden',
+        tos: 'tos',
+        // confirm_password: 'confirmed:@password',
+        // country: 'required|forbidden:Forbidden',
+        // tos: 'required',
+      },
+      userData: {
+        country: 'Brazil',
       },
     };
   },
