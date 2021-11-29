@@ -82,6 +82,12 @@
           </form>
 
           <!-- #2 Registration Form (vee-validated) -->
+          <!-- custom alert message field   -->
+          <div v-if="regShowAlert"
+               :class="regAlertVariants"
+               class="text-white text-center font-bold p-5 mb-4">
+            {{ regAlertMessage }}
+          </div>
           <VeeForm v-show="tab === 'register'"
                    :validation-schema="schema"
                    @submit="register"
@@ -180,8 +186,9 @@
               <ErrorMessage name="tos" class="text-red-600 block"/>
             </div>
 
-            <!-- Submit  -->
-            <button type="submit"
+            <!-- Submit button  -->
+            <button :disabled="regInSubmission"
+                    type="submit"
                     class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition
                 hover:bg-purple-700">
               Submit
@@ -219,6 +226,10 @@ export default {
       userData: {
         country: 'Brazil',
       },
+      regInSubmission: false,
+      regShowAlert: false,
+      regAlertVariants: 'bg-blue-500',
+      regAlertMessage: 'Please wait, your account is being created',
     };
   },
   computed: {
@@ -239,6 +250,15 @@ export default {
     // no 'v-model' to bind values of inputs fields, vee-validate instead
     register(values) {
       console.log('... register(values) ... :', values);
+
+      this.regShowAlert = true;
+      this.regInSubmission = true;
+
+      this.regAlertVariants = 'bg-blue-400';
+      this.regAlertMessage = 'Please wait, your account is being created';
+
+      this.regAlertVariants = 'bg-green-200';
+      this.regAlertMessage = 'Success, your account has been created';
     },
   },
 };
