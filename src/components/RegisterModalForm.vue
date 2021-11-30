@@ -120,6 +120,9 @@
 
 <script>
 
+// @ - path from the 'src'
+import firebase from '@/includes/firebase';
+
 export default {
   name: 'RegisterModalForm',
   data() {
@@ -128,7 +131,7 @@ export default {
         name: 'required|min:3|max:100|alphaSpaces',
         email: 'required|min:3|max:100|email',
         age: 'required|minValue:18|maxValue:100',
-        password: 'required|min:3|max:100',
+        password: 'required|min:6|max:100',
         confirmPassword: 'passwordMismatch:@password',
         country: 'required|countryExcluded:Forbidden',
         tos: 'tos',
@@ -146,7 +149,7 @@ export default {
     };
   },
   methods: {
-    register(values) {
+    async register(values) {
       console.log('... register(values) ... :', values);
 
       this.regShowAlert = true;
@@ -155,8 +158,23 @@ export default {
       this.regAlertVariants = 'bg-blue-400';
       this.regAlertMessage = 'Please wait, your account is being created';
 
+      let userCredentials = null;
+      try {
+        userCredentials = await firebase.auth().createUserWithEmailAndPassword(
+          values.email,
+          values.password,
+        );
+      } catch (error) {
+        this.regInSubmission = false;
+        this.regAlertVariants = 'bg-red-500';
+        this.regAlertMessage = 'Something went wrong';
+        return;
+      }
+
       this.regAlertVariants = 'bg-green-300';
       this.regAlertMessage = 'Success, your account has been created';
+
+      console.log(userCredentials);
     },
   },
 };

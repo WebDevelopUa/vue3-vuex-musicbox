@@ -13,6 +13,7 @@ Vue v3 Music Box Web App
 * [Yarn](https://classic.yarnpkg.com/lang/en/) >= 1.22.17
 * @vue/cli >= 4.5.15
 * [vee-validate v4](https://vee-validate.logaretm.com/v4/guide/components/validation)
+* Firebase account, JS SDK_VERSION 9.5.0
 
 ------------
 
@@ -124,42 +125,145 @@ Trigger validation:
 
 -------------------------
 
+## Firebase Auth
+
+* [login](https://console.firebase.google.com/)
+* Create a project (Step 1 of 3)
+* Create Firestore DB
+* Start in test mode - (***The default security rules for test mode allow anyone with your database reference to view,
+  edit and delete all data in your database for the next 30 days***)
+
+```json5 
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if
+          request.time < timestamp.date(2021, 12, 29);
+    }
+  }
+} 
+```
+
+* [Rules docs](https://firebase.google.com/docs/rules)
+* [Install Firebase SDK Docs](https://firebase.google.com/docs/web/setup) => vue ui => Dependencies => All => firebase
+  => Install firebase
+
+```js
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+const firebaseConfig = {
+    apiKey: 'AIzaSyAy9hdNs8R5e8Zgif1NTOiiAteTP7qkkHg',
+    authDomain: 'vue3-vuex-musicbox.firebaseapp.com',
+    projectId: 'vue3-vuex-musicbox',
+    storageBucket: 'vue3-vuex-musicbox.appspot.com',
+    appId: '1:902321016948:web:4d6e82cd909366eeb2c121',
+};
+
+export default firebase.initializeApp(firebaseConfig);
+
+```
+
+* Configure App => [Firebase console](https://console.firebase.google.com/project) => Web => Add Firebase to your web
+  app => Register app
+* Sidebar => Authentication => Get started => Sign-in method => Email/Password => Enable => Save
+* [firebase.auth.Auth docs](https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth)
+* Modify [RegisterModalForm](src/components/RegisterModalForm.vue) component
+* Update SDK 8 to 9 [Docs](https://firebase.google.com/docs/web/modular-upgrade) - `yarn add firebase@9.5.0`
+
+```js
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
+// v9 compat packages are API compatible with v8 code
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+
+const auth = firebase.auth();
+auth.onAuthStateChanged(user => {
+    // Check for user status
+});
+```
+
+#### ERROR:
+
+> POST https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAy9hdNs8R5e8Zgif1NTOiiAteTP7q*** 400
+
+> CHECK POST RESPONSE:
+
+ ```json5 
+{
+  "error": {
+    "code": 400,
+    "message": "WEAK_PASSWORD : Password should be at least 6 characters",
+    "errors": [
+      {
+        "message": "WEAK_PASSWORD : Password should be at least 6 characters",
+        "domain": "global",
+        "reason": "invalid"
+      }
+    ]
+  }
+}
+```
+
+-------------------------
+
 # musicbox
 
 ## Project setup
 
 ```
+
 yarn install
+
 ```
 
 ### Compiles and hot-reloads for development
 
 ```
+
 yarn serve
+
 ```
 
 ### Compiles and minifies for production
 
 ```
+
 yarn build
+
 ```
 
 ### Run your unit tests
 
 ```
+
 yarn test:unit
+
 ```
 
 ### Run your end-to-end tests
 
 ```
+
 yarn test:e2e
+
 ```
 
 ### Lints and fixes files
 
 ```
+
 yarn lint
+
 ```
 
 ### Customize configuration
