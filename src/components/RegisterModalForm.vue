@@ -172,6 +172,8 @@ export default {
       }
 
       try {
+        console.log('try', values.name);
+
         await usersCollection.add({
           name: values.name,
           email: values.email,
@@ -179,6 +181,8 @@ export default {
           country: values.country,
         });
       } catch (error) {
+        console.log('catch', error);
+
         this.regInSubmission = false;
         this.regAlertVariants = 'bg-red-500';
         this.regAlertMessage = 'Something went wrong';
@@ -188,7 +192,7 @@ export default {
       this.regAlertVariants = 'bg-green-300';
       this.regAlertMessage = 'Success, your account has been created';
 
-      // console.log(userCredentials);
+      console.log(userCredentials);
     },
   },
 };
