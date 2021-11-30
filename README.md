@@ -214,6 +214,14 @@ auth.onAuthStateChanged(user => {
 }
 ```
 
+* **Bucket** - physical location of data storage (limit 1 for free account)
+* **Collection** - records in a collection; stored data in db / like categories - separate objects
+* **Document** - with generated unique id to track all individual records in a collection; stored data in db / multiple
+  Documents can be stored in a single collection
+
+* Sidebar => Authentication => Users => Reload or Add User (email, password)
+* Sidebar => Firestore Database => Collection => Document
+
 -------------------------
 
 # musicbox

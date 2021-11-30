@@ -121,7 +121,7 @@
 <script>
 
 // @ - path from the 'src'
-import firebase from '@/includes/firebase';
+import { auth, usersCollection } from '@/includes/firebase';
 
 export default {
   name: 'RegisterModalForm',
@@ -160,7 +160,7 @@ export default {
 
       let userCredentials = null;
       try {
-        userCredentials = await firebase.auth().createUserWithEmailAndPassword(
+        userCredentials = await auth.createUserWithEmailAndPassword(
           values.email,
           values.password,
         );
@@ -171,10 +171,24 @@ export default {
         return;
       }
 
+      try {
+        await usersCollection.add({
+          name: values.name,
+          email: values.email,
+          age: values.age,
+          country: values.country,
+        });
+      } catch (error) {
+        this.regInSubmission = false;
+        this.regAlertVariants = 'bg-red-500';
+        this.regAlertMessage = 'Something went wrong';
+        return;
+      }
+
       this.regAlertVariants = 'bg-green-300';
       this.regAlertMessage = 'Success, your account has been created';
 
-      console.log(userCredentials);
+      // console.log(userCredentials);
     },
   },
 };
