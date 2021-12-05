@@ -271,6 +271,42 @@ The user's unique ID.
 
 -------------------------
 
+## [Vue Router](https://router.vuejs.org/ru/)
+
+``` 
+vue add router
+
+yarn add vue-router
+
+npm install vue-router
+```
+
+**_main.js_**
+
+```js 
+import router from './router';
+
+app.use(router);
+```
+
+**_src/router/index.js_**
+
+``` 
+import {createRouter, createWebHistory} from 'vue-router';
+
+const routes = [];
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
+});
+
+export default router;
+
+```
+
+-------------------------
+
 # musicbox
 
 ## Project setup
