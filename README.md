@@ -255,6 +255,19 @@ Actions vs Components
 * define logic in **COMPONENTS** if the changes affect the component or its children
 * define logic in **ACTIONS** if the changes affect the store/state
 
+## Firebase bind Auth & DB services:
+
+* [firebase.User](https://firebase.google.com/docs/reference/js/v8/firebase.User)
+
+```
+uid: string
+Inherited from User.uid
+
+The user's unique ID.
+```
+
+* save UID to Database
+
 -------------------------
 
 # musicbox
