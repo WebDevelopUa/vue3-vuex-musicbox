@@ -55,6 +55,15 @@ export default createStore({
       commit('toggleAuth');
     },
 
+    async login({ commit }, payload) {
+      await auth.signInWithEmailAndPassword(
+        payload.email,
+        payload.password,
+      );
+
+      commit('toggleAuth');
+    },
+
     // 2. Check the User Authenticated (load Firebase) before Vue App init
     initLogin({ commit }) {
       const user = auth.currentUser;

@@ -64,7 +64,7 @@ export default {
     };
   },
   methods: {
-    login(values) {
+    async login(values) {
       console.log('... login(values) ... :', values);
 
       this.logShowAlert = true;
@@ -72,6 +72,15 @@ export default {
 
       this.logAlertVariants = 'bg-blue-400';
       this.logAlertMessage = 'Please wait, logging ...';
+
+      try {
+        await this.$store.dispatch('login', values);
+      } catch (error) {
+        this.logInSubmission = false;
+        this.logAlertVariants = 'bg-red-400';
+        this.logAlertMessage = 'Error Login!';
+        return;
+      }
 
       this.logAlertVariants = 'bg-green-400';
       this.logAlertMessage = 'Success!';
