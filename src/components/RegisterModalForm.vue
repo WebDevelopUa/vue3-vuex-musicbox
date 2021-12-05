@@ -120,9 +120,6 @@
 
 <script>
 
-// @ - path from the 'src'
-import { auth, usersCollection } from '@/includes/firebase';
-
 export default {
   name: 'RegisterModalForm',
   data() {
@@ -158,44 +155,24 @@ export default {
       this.regAlertVariants = 'bg-blue-400';
       this.regAlertMessage = 'Please wait, your account is being created';
 
-      let userCredentials = null;
       try {
-        userCredentials = await auth.createUserWithEmailAndPassword(
-          values.email,
-          values.password,
-        );
+        // 1) manipulating the state
+        // dispatch an action using the store object
+        await this.$store.dispatch('register', values);
+
+        console.log('try {}: ', values.name);
       } catch (error) {
+        console.log('catch {}: ', error);
+
+        // 2) manipulating the component
         this.regInSubmission = false;
         this.regAlertVariants = 'bg-red-500';
         this.regAlertMessage = 'Something went wrong';
         return;
       }
-
-      try {
-        console.log('try', values.name);
-
-        await usersCollection.add({
-          name: values.name,
-          email: values.email,
-          age: values.age,
-          country: values.country,
-        });
-      } catch (error) {
-        console.log('catch', error);
-
-        this.regInSubmission = false;
-        this.regAlertVariants = 'bg-red-500';
-        this.regAlertMessage = 'Something went wrong';
-        return;
-      }
-
-      // Change user auth state in case of registration success
-      this.$store.commit('toggleAuth');
 
       this.regAlertVariants = 'bg-green-300';
       this.regAlertMessage = 'Success, your account has been created';
-
-      console.log(userCredentials);
     },
   },
 };

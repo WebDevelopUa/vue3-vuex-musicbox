@@ -243,6 +243,20 @@ auth.onAuthStateChanged(user => {
 
 -------------------------
 
+## Flux pattern
+
+1) Dispatch (Send Data)
+2) Action (Business Logic) - function => perform business logic & commit multiple mutations - SYNCHRONOUS & ASYNCHRONOUS
+3) Mutation - function => change the state - SYNCHRONOUS
+4) State
+
+Actions vs Components
+
+* define logic in **COMPONENTS** if the changes affect the component or its children
+* define logic in **ACTIONS** if the changes affect the store/state
+
+-------------------------
+
 # musicbox
 
 ## Project setup
