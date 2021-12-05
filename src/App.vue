@@ -1,4 +1,5 @@
 <template>
+
   <AppHeader/>
 
   <!-- global plugin register component associated with a path -->

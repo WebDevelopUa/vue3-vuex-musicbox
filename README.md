@@ -306,6 +306,18 @@ export default router;
 ```
 
 -------------------------
+-------------------------
+
+## SEO
+
+* [Search Console](https://search.google.com/search-console/welcome)
+* install [vue-meta](https://vue-meta.nuxtjs.org)
+* install [vue-meta-3](https://www.tutorialguruji.com/javascript/how-to-use-vue-3-meta-with-vue-js-3/) - `yarn add vue-meta@alpha`
+* add to `<head>`: `<meta name="google-site-verification" content="O3EHdQuvpYOlIc90qr3qvIpLhTTKUA8QmDPqsVcm7Ao" />`
+* [Install Vue Analytics](https://webdeasy.de/en/vue-analytics-en/) - `yarn add vue-analytics`
+
+
+-------------------------
 
 # musicbox
 
