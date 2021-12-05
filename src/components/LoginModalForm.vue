@@ -84,6 +84,9 @@ export default {
 
       this.logAlertVariants = 'bg-green-400';
       this.logAlertMessage = 'Success!';
+
+      // refresh the page
+      window.location.reload();
     },
   },
 };

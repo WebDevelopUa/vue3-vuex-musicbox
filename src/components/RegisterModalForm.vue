@@ -173,6 +173,9 @@ export default {
 
       this.regAlertVariants = 'bg-green-300';
       this.regAlertMessage = 'Success, your account has been created';
+
+      // refresh the page
+      window.location.reload();
     },
   },
 };
