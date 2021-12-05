@@ -127,6 +127,11 @@ Trigger validation:
 
 ## Firebase Auth
 
+> Stateless Authentication - the server does not actively keep track of who's logged in;
+> a token is used to verify the user instead;
+> Vue App send Auth data to Firebase Server; Sever send Token to Local Storage of browser; Vue Send token to Server with every request to Server; Server confirms the user
+> DevTools => App => Storage => IndexedDB => firebaseLocalStorageDB => firebaseLocalStorage => {fbase_key: 'x', value: {}}
+
 * [login](https://console.firebase.google.com/)
 * Create a project (Step 1 of 3)
 * Create Firestore DB
@@ -143,6 +148,20 @@ service cloud.firestore {
     }
   }
 } 
+```
+
+### checks the user is logged in (if UID not null)
+
+```json5 
+rules_version = '2';
+  service cloud.firestore {
+    match /databases/{database}/documents {
+      match /{document=**} {
+        allow read: if true;
+        allow write: if request.auth.uid !=null;
+    }
+  } 
+}
 ```
 
 * [Rules docs](https://firebase.google.com/docs/rules)

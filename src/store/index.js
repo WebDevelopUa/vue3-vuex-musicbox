@@ -3,11 +3,16 @@ import { createStore } from 'vuex';
 export default createStore({
   state: {
     authModalShow: false,
+    userLoggedIn: false,
   },
   mutations: {
     toggleAuthModal: (state) => {
-      console.log('... toggleAuthModal: (state) mutations ...', state.authModalShow);
       state.authModalShow = !state.authModalShow;
+      console.log('... toggleAuthModal: (state) mutations ...', state.authModalShow);
+    },
+    toggleAuth(state) {
+      state.userLoggedIn = !state.userLoggedIn;
+      console.log('... toggleAuth: (state) mutations ...', state.userLoggedIn);
     },
   },
   getters: {

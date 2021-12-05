@@ -189,6 +189,9 @@ export default {
         return;
       }
 
+      // Change user auth state in case of registration success
+      this.$store.commit('toggleAuth');
+
       this.regAlertVariants = 'bg-green-300';
       this.regAlertMessage = 'Success, your account has been created';
 
