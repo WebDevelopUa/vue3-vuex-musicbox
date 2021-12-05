@@ -267,6 +267,7 @@ The user's unique ID.
 ```
 
 * save UID to Database
+* Firebase SDK store Auth token on a client
 
 -------------------------
 

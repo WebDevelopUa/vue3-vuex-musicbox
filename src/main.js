@@ -4,13 +4,25 @@ import router from './router';
 import store from './store';
 import VeeValidatePlugin from './includes/validation';
 
-import './includes/firebase';
+import { auth } from './includes/firebase';
+
 import './assets/tailwind.css';
 import './assets/main.css';
 
-const app = createApp(App);
+// 1. Check the User Authenticated (load Firebase) before Vue App starts
 
-app.use(store);
-app.use(router);
-app.use(VeeValidatePlugin);
-app.mount('#app');
+// Firebase receiving the event is User logged in
+let app;
+auth.onAuthStateChanged(
+  () => {
+    if (!app) {
+      app = createApp(App);
+
+      app.use(store);
+      app.use(router);
+      app.use(VeeValidatePlugin);
+      app.mount('#app');
+    }
+  },
+
+);
