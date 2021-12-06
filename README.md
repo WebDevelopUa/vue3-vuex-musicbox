@@ -313,9 +313,9 @@ export default router;
 * [Search Console](https://search.google.com/search-console/welcome)
 * install [vue-meta](https://vue-meta.nuxtjs.org)
 * install [vue-meta-3](https://www.tutorialguruji.com/javascript/how-to-use-vue-3-meta-with-vue-js-3/) - `yarn add vue-meta@alpha`
-* add to `<head>`: `<meta name="google-site-verification" content="O3EHdQuvpYOlIc90qr3qvIpLhTTKUA8QmDPqsVcm7Ao" />`
+* add to `<head>` of [index.html](public/index.html): `<meta name="google-site-verification" content="O3EHdQuvpYOlIc90qr3qvIpLhTTKUA8QmDPqsVcm7Ao" />`
 * [Install Vue Analytics](https://github.com/MatteoGabriele/vue-gtag-next) - `yarn add vue-gtag-next`
-
+* [Integration](https://marketingplatform.google.com/home/integrations?authuser=0)
 
 -------------------------
 
