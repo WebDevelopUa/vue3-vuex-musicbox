@@ -73,12 +73,17 @@ export default {
     // dispatch signOut action from component
     signOut() {
       this.$store.dispatch('signOut');
-      // console.log('this.$route ------ : ', this.$route);
 
-      if (this.$route.name === 'manage') {
-        // redirect user to Homepage from Manage page
+      // check meta value from router
+      if (this.$route.meta.requiresAuth) {
         this.$router.push({ name: 'home' });
       }
+
+      // replaced with Route meta fields logic
+      // if (this.$route.name === 'manage') {
+      //   // redirect user to Homepage from Manage page
+      //   this.$router.push({ name: 'home' });
+      // }
     },
 
     // replaced with signOut(){} method

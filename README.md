@@ -322,6 +322,8 @@ export default router;
 11. DOM updates triggered.
 12. Call callbacks passed to next in beforeRouteEnter guards with instantiated instances.
 
+[Route Meta Fields](https://router.vuejs.org/guide/advanced/meta.html)
+
 -------------------------
 -------------------------
 

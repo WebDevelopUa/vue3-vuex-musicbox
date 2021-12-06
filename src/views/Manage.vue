@@ -137,20 +137,23 @@
 
 <script>
 
-import store from '@/store';
+// import store from '@/store';
 
 export default {
   name: 'Manage',
-  // method runs before component render (Navigation Guards)
-  beforeRouteEnter(to, from, next) {
-    console.log('... beforeRouteEnter(to,from,next) ... store.state.userLoggedIn: ', store.state.userLoggedIn);
-    if (store.state.userLoggedIn) {
-      // render Manage page when user is logged in
-      next();
-    } else {
-      // redirect to Homepage when user is NOT logged in
-      next({ name: 'home' });
-    }
-  },
+
+  // move this logic to the global level
+  // // (used for only this component) method runs before component render (Navigation Guards)
+  // beforeRouteEnter(to, from, next) {
+  //   console.log('... beforeRouteEnter(to,from,next) ... store.state.userLoggedIn: ', store.state.userLoggedIn);
+  //   if (store.state.userLoggedIn) {
+  //     // render Manage page when user is logged in
+  //     next();
+  //   } else {
+  //     // redirect to Homepage when user is NOT logged in
+  //     next({ name: 'home' });
+  //   }
+  // },
+
 };
 </script>
