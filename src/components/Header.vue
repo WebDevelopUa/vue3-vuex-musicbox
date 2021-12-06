@@ -60,7 +60,7 @@
 
 <script>
 
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'Header',
@@ -69,12 +69,20 @@ export default {
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),
-    ...mapActions(['signOut']),
 
-    // replaced with mapActions from 'vuex'
-    // signOut() {
-    //   this.$store.dispatch('signOut');
-    // }
+    // dispatch signOut action from component
+    signOut() {
+      this.$store.dispatch('signOut');
+      // console.log('this.$route ------ : ', this.$route);
+
+      if (this.$route.name === 'manage') {
+        // redirect user to Homepage from Manage page
+        this.$router.push({ name: 'home' });
+      }
+    },
+
+    // replaced with signOut(){} method
+    // ...mapActions(['signOut']),
 
     // replaced with mapMutations from 'vuex'
     // toggleAuthModal() {
