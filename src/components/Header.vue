@@ -3,9 +3,11 @@
     <nav class="container mx-auto flex justify-start items-center py-5 px-4">
 
       <!-- App Name -->
-      <router-link class="text-white font-bold uppercase text-2xl mr-4"
-                   to="/">
-        Music
+      <router-link class="text-white font-bold uppercase text-2xl mr-4 no-active"
+                   to="/"
+                   exact-active-class="no-active"
+      >
+        MusicBox
       </router-link>
 
       <div class="flex flex-grow items-center">
@@ -23,26 +25,26 @@
 
           <li v-if="!userLoggedIn">
             <!-- Open modal dialog window   -->
-            <router-link class="px-2 text-white"
-               @click.prevent="toggleAuthModal"
-                to="#">
+            <a class="px-2 text-white"
+                         @click.prevent="toggleAuthModal"
+                         href="#">
               Login / Register
-            </router-link>
+            </a>
           </li>
 
           <template v-else>
             <li>
               <router-link class="px-2 text-white"
-               to="/manage">
+                           to="/manage">
                 Manage
               </router-link>
             </li>
             <li>
-              <router-link class="px-2 text-white"
-                 @click.prevent="signOut"
-                 to="#">
+              <a class="px-2 text-white"
+                           @click.prevent="signOut"
+                           href="#">
                 Logout
-              </router-link>
+              </a>
             </li>
 
           </template>
