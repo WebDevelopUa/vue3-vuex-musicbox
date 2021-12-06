@@ -21,6 +21,7 @@ auth.onAuthStateChanged(
       app.use(VueGtag, {
         property: {
           id: 'G-CH6ZVMFR57',
+          router,
         },
       });
       app.use(store);
