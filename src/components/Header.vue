@@ -4,7 +4,7 @@
 
       <!-- App Name -->
       <router-link class="text-white font-bold uppercase text-2xl mr-4 no-active"
-                   to="/"
+                   :to="{name: 'home'}"
                    exact-active-class="no-active"
       >
         MusicBox
@@ -18,7 +18,8 @@
           <!-- Navigation Links -->
           <li>
             <router-link class="px-2 text-white"
-                         to="/about">
+                         :to="{name: 'about'}"
+            >
               About
             </router-link>
           </li>
@@ -26,8 +27,8 @@
           <li v-if="!userLoggedIn">
             <!-- Open modal dialog window   -->
             <a class="px-2 text-white"
-                         @click.prevent="toggleAuthModal"
-                         href="#">
+               @click.prevent="toggleAuthModal"
+               href="#">
               Login / Register
             </a>
           </li>
@@ -35,14 +36,15 @@
           <template v-else>
             <li>
               <router-link class="px-2 text-white"
-                           to="/manage">
+                           :to="{name: 'manage'}"
+              >
                 Manage
               </router-link>
             </li>
             <li>
               <a class="px-2 text-white"
-                           @click.prevent="signOut"
-                           href="#">
+                 @click.prevent="signOut"
+                 href="#">
                 Logout
               </a>
             </li>
