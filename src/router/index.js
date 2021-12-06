@@ -8,12 +8,13 @@ import Manage from '@/views/Manage.vue';
 const routes = [
   {
     name: 'home',
+    alias: '/home',
     path: '/',
     component: Home,
   },
   {
     name: 'about',
-    path: '/about',
+    path: '/about-us',
     component: About,
   },
   {
