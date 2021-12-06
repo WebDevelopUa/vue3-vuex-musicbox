@@ -316,6 +316,8 @@ export default router;
 * add to `<head>` of [index.html](public/index.html): `<meta name="google-site-verification" content="O3EHdQuvpYOlIc90qr3qvIpLhTTKUA8QmDPqsVcm7Ao" />`
 * [Install Vue Analytics](https://github.com/MatteoGabriele/vue-gtag-next) - `yarn add vue-gtag-next`
 * [Integration](https://marketingplatform.google.com/home/integrations?authuser=0)
+* [Add URL](https://search.google.com/search-console/inspect/mobile-usability)
+* [Page speed](https://pagespeed.web.dev/report)
 
 -------------------------
 
