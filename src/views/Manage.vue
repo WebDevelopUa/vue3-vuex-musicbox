@@ -136,7 +136,19 @@
 </template>
 
 <script>
+
+import store from '@/store';
+
 export default {
   name: 'Manage',
+  // method runs before component render
+  beforeRouteEnter(to, from, next) {
+    console.log('... beforeRouteEnter(to,from,next) ... store.state.userLoggedIn: ', store.state.userLoggedIn);
+    if (store.state.userLoggedIn) {
+      next();
+    } else {
+      next({ name: 'home' });
+    }
+  },
 };
 </script>

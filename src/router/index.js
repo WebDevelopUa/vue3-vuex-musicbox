@@ -21,6 +21,10 @@ const routes = [
     name: 'manage',
     path: '/manage-music',
     component: Manage,
+    beforeEnter: (to, from, next) => {
+      console.log('... Manage page Route Guard ...');
+      next();
+    },
   },
   {
     path: '/manage',
@@ -38,5 +42,14 @@ const router = createRouter({
   routes,
   linkExactActiveClass: 'text-yellow-500',
 });
+
+// Add router guard to protect '/manage' from unauthorised users
+// before every request
+router.beforeEach(
+  (to, from, next) => {
+    console.log('Global Guard - to, from: ', to, from);
+    next();
+  },
+);
 
 export default router;

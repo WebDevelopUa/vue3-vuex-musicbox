@@ -305,6 +305,23 @@ export default router;
 
 ```
 
+### [Navigation Guards](https://router.vuejs.org/guide/advanced/navigation-guards.html)
+
+**The Full Navigation Resolution Flow**
+
+1. Navigation triggered.
+2. Call beforeRouteLeave guards in deactivated components.
+3. Call global beforeEach guards.
+4. Call beforeRouteUpdate guards in reused components.
+5. Call beforeEnter in route configs.
+6. Resolve async route components.
+7. Call beforeRouteEnter in activated components.
+8. Call global beforeResolve guards.
+9. Navigation confirmed.
+10. Call global afterEach hooks.
+11. DOM updates triggered.
+12. Call callbacks passed to next in beforeRouteEnter guards with instantiated instances.
+
 -------------------------
 -------------------------
 
@@ -313,7 +330,7 @@ export default router;
 * [Search Console](https://search.google.com/search-console/welcome)
 * install [vue-meta](https://vue-meta.nuxtjs.org)
 * install [vue-meta-3](https://www.tutorialguruji.com/javascript/how-to-use-vue-3-meta-with-vue-js-3/)
-  - `yarn add vue-meta@alpha`
+    - `yarn add vue-meta@alpha`
 * add to `<head>`
   of [index.html](public/index.html): `<meta name="google-site-verification" content="O3EHdQuvpYOlIc90qr3qvIpLhTTKUA8QmDPqsVcm7Ao" />`
 * [Install Vue Analytics](https://github.com/MatteoGabriele/vue-gtag-next) - `yarn add vue-gtag-next`
