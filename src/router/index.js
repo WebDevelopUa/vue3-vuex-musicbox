@@ -56,6 +56,7 @@ router.beforeEach(
     // check the META is user authenticated then check STATE user authenticated
     if (!to.matched.some((record) => record.meta.requiresAuth)) {
       next();
+      return;
     }
 
     if (store.state.userLoggedIn) {
