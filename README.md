@@ -324,6 +324,88 @@ export default router;
 
 [Route Meta Fields](https://router.vuejs.org/guide/advanced/meta.html)
 
+### Avoiding Dependency Cycle (error)
+
+```js
+// a.js
+// router/index.js
+import b from 'b';
+import srore from '@/store';
+
+
+```
+
+```js 
+// b.js
+// components/Header.vue
+// store/ndex.js
+import a from 'a';
+import router from '@/router';
+
+export default createStore({
+    actions: {
+
+        // #1
+        async signOut({commit}) {
+            await auth.signOut();
+            commit('toggleAuth');
+
+            //  move the logic from Header component to an action
+            //  rotuter throw Dependency cycle error
+            // (importing route to store & store to route)
+            if (this.$route.meta.requiresAuth) {
+                this.$router.push({name: 'home'});
+            }
+        },
+
+
+        // #2
+        async signOut({commit}, payload) {
+            await auth.signOut();
+            commit('toggleAuth');
+
+            if (payload.meta.requiresAuth) {
+                payload.push({name: 'home'});
+            }
+        },
+
+
+    },
+})
+
+```
+
+```js 
+// components/Header.vue
+
+export default {
+    methods: {
+        //#1
+        signOut() {
+            this.$store.dispatch('signOut');
+
+            // 1. you can move it to an action (with Dependency cycle error)
+            if (this.$route.meta.requiresAuth) {
+                this.$router.push({name: 'home'});
+            }
+        },
+
+        // #2
+        signOut() {
+
+            // 2. you can pass router as part of payload to store
+            this.$store.dispatch('signOut', {
+                router: this.$router,
+                route: this.$route,
+            });
+
+
+        }
+
+    }
+}
+```
+
 -------------------------
 -------------------------
 
