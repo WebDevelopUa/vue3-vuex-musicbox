@@ -410,10 +410,68 @@ export default {
 
 ## Uploading files to FireStorage
 
+[Free quota](https://firebase.google.com/docs/firestore/quotas)
+
 Firebase => Storage => Songs
 
 > Uncaught TypeError: firebase_compat_app__WEBPACK_IMPORTED_MODULE_0__.default.storage is not a function;  
 > fix import path: `import 'firebase/storage';` to `import 'firebase/compat/storage';
+
+Firebase => Storage => [Rules](https://firebase.google.com/docs/storage/security/get-started):
+
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+Read - all users;
+Write - only Auth users - 10mb audio file
+
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true; 
+      allow write: if request.auth != null &&
+       request.resource.contentType.matches("audio/*") &&
+       request.resource.size < 10 * 1024 * 1024;
+    }
+  }
+}
+```
+
+Publish
+
+
+```json5
+{
+  "error": {
+    "code": 403,
+    "message": "Permission denied."
+  }
+}
+```
+
+``` 
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true; 
+      allow write: if request.auth != null &&
+       request.resource.contentType.matches("audio/mpeg") &&
+       request.resource.size < 10 * 1024 * 1024;
+    }
+  }
+}
+```
 
 -------------------------
 -------------------------
