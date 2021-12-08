@@ -4,6 +4,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAy9hdNs8R5e8Zgif1NTOiiAteTP7qkkHg',
@@ -23,7 +24,12 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const usersCollection = db.collection('users');
 
+// Mp3 file storage on Firebase
+const storage = firebase.storage();
+
 // Name exports
-export { auth, db, usersCollection };
+export {
+  auth, db, usersCollection, storage,
+};
 
 // export default firebase.initializeApp(firebaseConfig);

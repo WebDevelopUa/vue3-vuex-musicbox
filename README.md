@@ -408,8 +408,12 @@ export default {
 
 -------------------------
 
-## Uploading files to Firestorage
+## Uploading files to FireStorage
 
+Firebase => Storage => Songs
+
+> Uncaught TypeError: firebase_compat_app__WEBPACK_IMPORTED_MODULE_0__.default.storage is not a function;  
+> fix import path: `import 'firebase/storage';` to `import 'firebase/compat/storage';
 
 -------------------------
 -------------------------

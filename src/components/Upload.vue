@@ -6,14 +6,26 @@
         <i class="fas fa-upload float-right text-green-400 text-2xl"></i>
       </div>
       <div class="p-6">
+
         <!-- Upload Dropbox -->
         <div
+          @drag.prevent.stop=""
+          @dragstart.prevent.stop=""
+          @dragend.prevent.stop="isDragOver=false"
+          @dragover.prevent.stop="isDragOver = true"
+          @dragenter.prevent.stop="isDragOver = true"
+          @dragleave.prevent.stop="isDragOver=false"
+          @drop.prevent.stop="upload($event)"
+
+          :class="{ 'bg-green-400 border-green-400 border-solid': isDragOver }"
           class="w-full px-10 py-20 rounded text-center cursor-pointer border border-dashed
                 border-gray-400 text-gray-400 transition duration-500 hover:text-white
                 hover:bg-green-400 hover:border-green-400 hover:border-solid">
           <h5>Drop your files here</h5>
         </div>
+
         <hr class="my-6"/>
+
         <!-- Progess Bars -->
         <div class="mb-4">
           <!-- File Name -->
@@ -23,6 +35,7 @@
             <div class="transition-all progress-bar bg-blue-400" style="width: 75%"></div>
           </div>
         </div>
+
         <div class="mb-4">
           <div class="font-bold text-sm">Just another song.mp3</div>
           <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
@@ -41,7 +54,43 @@
 </template>
 
 <script>
+
+import { storage } from '@/includes/firebase';
+
 export default {
   name: 'Upload',
+  // isDragOver - pass as data() value (not State), because it used only in current component
+  data() {
+    return {
+      isDragOver: false,
+    };
+  },
+  methods: {
+    upload($event) {
+      this.isDragOver = false;
+
+      // converting Object to Array to use Array methods (forEach())
+      const files = [...$event.dataTransfer.files];
+      files.forEach(
+        (file) => {
+          if (file.type !== 'audio/mpeg') {
+            console.log('File Type :', file.type);
+            return;
+          }
+
+          // reference to the storage (firebaseConfig => storageBucket: 'vue3-vuex-musicbox.appspot.com',)
+          const storageRef = storage.ref();
+          const songsRef = storageRef.child(`songs/${file.name}`);
+          songsRef.put(file);
+
+          console.log('uploaded');
+        },
+      );
+
+      console.log('... upload($event) ... :', $event);
+      console.log('... files Object... :', $event.dataTransfer.files);
+      console.log('... files Array... :', files);
+    },
+  },
 };
 </script>
