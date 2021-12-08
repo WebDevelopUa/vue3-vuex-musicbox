@@ -73,8 +73,8 @@ export default {
       const files = [...$event.dataTransfer.files];
       files.forEach(
         (file) => {
-          if (file.type !== 'audio/mpeg') {
-            console.log('File Type :', file.type);
+          if ((file.type !== 'audio/mpeg') && (file.type !== 'video/mp4')) {
+            console.log('File Type error:', file.type);
             return;
           }
 

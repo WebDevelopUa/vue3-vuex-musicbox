@@ -467,6 +467,24 @@ service firebase.storage {
       allow read: if true; 
       allow write: if request.auth != null &&
        request.resource.contentType.matches("audio/mpeg") &&
+       request.resource.contentType.matches("video/mp4") &&
+       request.resource.size < 10 * 1024 * 1024;
+    }
+  }
+}
+```
+
+[.matches()](https://firebase.google.com/docs/reference/security/database/regex)
+
+``` 
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true; 
+      allow write: if request.auth != null &&
+       request.resource.contentType.matches("audio/mpeg") ||
+       request.resource.contentType.matches("video/mp4") &&
        request.resource.size < 10 * 1024 * 1024;
     }
   }
