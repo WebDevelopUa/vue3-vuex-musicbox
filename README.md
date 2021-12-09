@@ -20,8 +20,8 @@ Vue v3 Music Box Web App
 * Firebase Authentication
 * [Firebase Usage and billing](https://console.firebase.google.com/project/vue3-vuex-musicbox/usage)
 * Firestore [DB collections](src/includes/firebase.js): `const db = firebase.firestore();`
-  * users: `const usersCollection = db.collection('users');`
-  * songs: `const songsCollection = db.collection('songs');`
+    * users: `const usersCollection = db.collection('users');`
+    * songs: `const songsCollection = db.collection('songs');`
 
 ------------
 
@@ -282,21 +282,20 @@ DB collections:
 * users
 * songs
 
-
 ### Reference vs Snapshots
 
 Can read the data in App
 
 * **Reference** - object that points a location in Vue App;
-  * allows to read & write multiple references
-  * used to manipulate the data in DB
-  * used for upload files to the storage & DB
+    * allows to read & write multiple references
+    * used to manipulate the data in DB
+    * used for upload files to the storage & DB
 * **Snapshot** - object that is a copy of a location in Vue App;
-  * read-only, but are memory efficient
-  * immutable - can't be updated
-  * used for gathering info about uploading progress
-  * can't be created directly
-  * created during events
+    * read-only, but are memory efficient
+    * immutable - can't be updated
+    * used for gathering info about uploading progress
+    * can't be created directly
+    * created during events
 
 -------------------------
 
@@ -524,6 +523,13 @@ service firebase.storage {
 * [Font Awesome 6 free](https://fontawesome.com/v6.0/icons?q=times&m=free)
     * `<font-awesome-icon icon="fa-solid fa-xmark" />`
     * `<i class="fa-solid fa-xmark"></i>`
+
+-------------------------
+
+### References vs Reactivity
+
+* **Reference** - not reactive - directly access the DOM without updating the Vue Instance; data doesn't change
+* **Reactivity** - data changes; Vue instance is updated; Vue updates the template; template gets rendered onto DOM
 
 -------------------------
 -------------------------
