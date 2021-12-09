@@ -152,16 +152,26 @@ export default {
       // console.log('... files Object... :', $event.dataTransfer.files);
       // console.log('... files Array... :', files);
     },
+    cancelUploads() {
+      console.log(' cancelUploads()');
+      // 1) cancel upload before the component unmounted / switch to another page
+      this.uploads.forEach(
+        (upload) => {
+          console.log('cancel upload');
+          upload.task.cancel();
+        },
+      );
+    },
   },
-  beforeUnmount() {
-    console.log('beforeUnmount()');
-    // cancel upload before the component unmounted / switch to another page
-    this.uploads.forEach(
-      (upload) => {
-        console.log('cancel upload');
-        upload.task.cancel();
-      },
-    );
-  },
+  // beforeUnmount() {
+  //   console.log('beforeUnmount()');
+  //   // 2) cancel upload before the component unmounted / switch to another page
+  //   this.uploads.forEach(
+  //     (upload) => {
+  //       console.log('cancel upload');
+  //       upload.task.cancel();
+  //     },
+  //   );
+  // },
 };
 </script>

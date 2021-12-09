@@ -3,7 +3,8 @@
     <div class="md:grid md:grid-cols-3 md:gap-4">
 
       <!-- Uploading files -->
-      <AppUpload/>
+      <!-- Attach reference property to cancel upload using Navigation Guard and references  -->
+      <AppUpload ref="upload"/>
       <!-- ./Uploading files -->
 
       <!-- Music list -->
@@ -113,6 +114,11 @@ import AppUpload from '@/components/Upload.vue';
 export default {
   name: 'Manage',
   components: { AppUpload },
+  beforeRouteLeave(to, from, next) {
+    // 2) cancel upload using Navigation Guard and references
+    this.$refs.upload.cancelUploads();
+    next();
+  },
   // move this logic to the global level
   // // (used for only this component) method runs before component render (Navigation Guards)
   // beforeRouteEnter(to, from, next) {
