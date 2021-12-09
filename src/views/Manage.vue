@@ -110,10 +110,32 @@
 // import store from '@/store';
 
 import AppUpload from '@/components/Upload.vue';
+import { songsCollection, auth } from '@/includes/firebase';
 
 export default {
   name: 'Manage',
   components: { AppUpload },
+  data() {
+    return {
+      songs: [],
+    };
+  },
+  async created() {
+    //  retrieve the data from DB before the component gets loaded on the page
+    // asynchronous request data from DB / querying the documents (objects) / chaining by get() - return Snapshot
+    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get();
+
+    snapshot.forEach(
+      (document) => {
+        const song = {
+          ...document.data(),
+          docID: document.id,
+        };
+
+        this.songs.push(song);
+      },
+    );
+  },
   beforeRouteLeave(to, from, next) {
     // 2) cancel upload using Navigation Guard and references
     this.$refs.upload.cancelUploads();
