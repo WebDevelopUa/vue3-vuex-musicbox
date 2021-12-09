@@ -18,6 +18,7 @@ Vue v3 Music Box Web App
 * Firebase account, JS SDK_VERSION 9.5.0
 * Firebase Storage
 * Firebase Authentication
+* [Firebase Usage and billing](https://console.firebase.google.com/project/vue3-vuex-musicbox/usage)
 * Firestore [DB collections](src/includes/firebase.js): `const db = firebase.firestore();`
   * users: `const usersCollection = db.collection('users');`
   * songs: `const songsCollection = db.collection('songs');`
@@ -280,6 +281,22 @@ DB collections:
 
 * users
 * songs
+
+
+### Reference vs Snapshots
+
+Can read the data in App
+
+* **Reference** - object that points a location in Vue App;
+  * allows to read & write multiple references
+  * used to manipulate the data in DB
+  * used for upload files to the storage & DB
+* **Snapshot** - object that is a copy of a location in Vue App;
+  * read-only, but are memory efficient
+  * immutable - can't be updated
+  * used for gathering info about uploading progress
+  * can't be created directly
+  * created during events
 
 -------------------------
 

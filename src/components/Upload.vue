@@ -24,6 +24,12 @@
           <h5>Drop your files here</h5>
         </div>
 
+        <!-- Fallback support for uploader -->
+        <input
+          @change="upload($event)"
+          type="file"
+          multiple/>
+
         <hr class="my-6"/>
 
         <!-- Progess Bars -->
@@ -71,8 +77,10 @@ export default {
     upload($event) {
       this.isDragOver = false;
 
+      // check is event triggered by Drag&Drop or Input change event
       // converting Object to Array to use Array methods (forEach())
-      const files = [...$event.dataTransfer.files];
+      const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files];
+
       files.forEach(
         (file) => {
           if ((file.type !== 'audio/mpeg') && (file.type !== 'video/mp4')) {
@@ -140,9 +148,9 @@ export default {
         },
       );
 
-      console.log('... upload($event) ... :', $event);
-      console.log('... files Object... :', $event.dataTransfer.files);
-      console.log('... files Array... :', files);
+      // console.log('... upload($event) ... :', $event);
+      // console.log('... files Object... :', $event.dataTransfer.files);
+      // console.log('... files Array... :', files);
     },
   },
 };
