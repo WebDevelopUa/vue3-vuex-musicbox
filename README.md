@@ -13,7 +13,14 @@ Vue v3 Music Box Web App
 * [Yarn](https://classic.yarnpkg.com/lang/en/) >= 1.22.17
 * @vue/cli >= 4.5.15
 * [vee-validate v4](https://vee-validate.logaretm.com/v4/guide/components/validation)
+* Font Awesome 5.3.1
+* tailwindcss/postcss7-compat 2.2.17
 * Firebase account, JS SDK_VERSION 9.5.0
+* Firebase Storage
+* Firebase Authentication
+* Firestore DB collections:
+  * users
+  * songs
 
 ------------
 
@@ -269,6 +276,11 @@ The user's unique ID.
 * save UID to Database
 * Firebase SDK store Auth token on a client
 
+DB collections:
+
+* users
+* songs
+
 -------------------------
 
 ## [Vue Router](https://router.vuejs.org/ru/)
@@ -430,8 +442,7 @@ service firebase.storage {
 }
 ```
 
-Read - all users;
-Write - only Auth users - 10mb audio file
+Read - all users; Write - only Auth users - 10mb audio file
 
 ```
 rules_version = '2';
@@ -448,7 +459,6 @@ service firebase.storage {
 ```
 
 Publish
-
 
 ```json5
 {
@@ -483,13 +493,20 @@ service firebase.storage {
     match /{allPaths=**} {
       allow read: if true; 
       allow write: if request.auth != null &&
-       request.resource.contentType.matches("audio/mpeg") ||
-       request.resource.contentType.matches("video/mp4") &&
+       (request.resource.contentType.matches("audio/mpeg") ||
+       request.resource.contentType.matches("video/mp4")) &&
        request.resource.size < 10 * 1024 * 1024;
     }
   }
 }
 ```
+
+* [Monitor Upload Progress](https://firebase.google.com/docs/storage/web/upload-files)
+    * **bytesTransferred**  - Number Общее количество байтов, переданных при создании этого моментального снимка.
+    * **totalBytes**  - Number Ожидаемое общее количество байтов для загрузки.
+* [Font Awesome 6 free](https://fontawesome.com/v6.0/icons?q=times&m=free)
+    * `<font-awesome-icon icon="fa-solid fa-xmark" />`
+    * `<i class="fa-solid fa-xmark"></i>`
 
 -------------------------
 -------------------------

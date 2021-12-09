@@ -27,27 +27,28 @@
         <hr class="my-6"/>
 
         <!-- Progess Bars -->
-        <div class="mb-4">
+        <div v-for="upload in uploads"
+             :key="upload.name"
+             class="mb-4">
+
           <!-- File Name -->
-          <div class="font-bold text-sm">Just another song.mp3</div>
-          <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-            <!-- Inner Progress Bar -->
-            <div class="transition-all progress-bar bg-blue-400" style="width: 75%"></div>
+          <div :class="upload.textClass"
+               class="font-bold text-sm">
+            <i :class="upload.icon"></i>
+            {{ upload.name }}
           </div>
+          <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
+
+            <!-- Inner Progress Bar -->
+            <div :style="{ width: upload.currentProgress + '%'}"
+                 :class="'bg-blue-400'"
+                 class="transition-all progress-bar">
+
+            </div>
+          </div>
+
         </div>
 
-        <div class="mb-4">
-          <div class="font-bold text-sm">Just another song.mp3</div>
-          <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-            <div class="transition-all progress-bar bg-blue-400" style="width: 35%"></div>
-          </div>
-        </div>
-        <div class="mb-4">
-          <div class="font-bold text-sm">Just another song.mp3</div>
-          <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-            <div class="transition-all progress-bar bg-blue-400" style="width: 55%"></div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -55,7 +56,7 @@
 
 <script>
 
-import { storage } from '@/includes/firebase';
+import {storage, auth} from '@/includes/firebase';
 
 export default {
   name: 'Upload',
@@ -63,6 +64,7 @@ export default {
   data() {
     return {
       isDragOver: false,
+      uploads: [],
     };
   },
   methods: {
@@ -81,9 +83,58 @@ export default {
           // reference to the storage (firebaseConfig => storageBucket: 'vue3-vuex-musicbox.appspot.com',)
           const storageRef = storage.ref();
           const songsRef = storageRef.child(`songs/${file.name}`);
-          songsRef.put(file);
 
-          console.log('uploaded');
+          // task snapshot object / put() - init upload & return an obj
+          const task = songsRef.put(file);
+
+          // create uploads array / object inserted as last index of the array
+          const uploadIndex = this.uploads.push({
+            task,
+            currentProgress: 0,
+            name: file.name,
+            variant: 'bg-blue-400',
+            icon: 'fas fa-spinner fa-spin',
+            textClass: '',
+          }) - 1;
+
+          // on() - listen the event on the object
+          // calculating progress using snapshot object
+          task.on('stateChanged',
+            (snapshot) => {
+              // current upload progress
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              this.uploads[uploadIndex].currentProgress = progress;
+            },
+            (error) => {
+              this.uploads[uploadIndex].variant = 'bg-red-400';
+              this.uploads[uploadIndex].icon = 'fas fa-times';
+              this.uploads[uploadIndex].textClass = 'text-red-400';
+
+              console.log(error);
+            },
+            async () => {
+
+              // let us know who upload the file
+              const song = {
+                uid: auth.currentUser.uid,
+                displayName: auth.currentUser.displayName,
+                originalName: task.snapshot.ref.name,
+                modifiedName: task.snapshot.ref.name,
+                genre: '',
+                commentCount: 0,
+              };
+
+              // URL to the file
+              song.url = await task.snapshot.ref.getDownloadURL();
+
+              this.uploads[uploadIndex].variant = 'bg-green-400';
+              this.uploads[uploadIndex].icon = 'fas fa-check';
+              this.uploads[uploadIndex].textClass = 'text-green-400';
+
+              console.log('Uploaded!');
+            });
+
+          console.log('uploading ...');
         },
       );
 
