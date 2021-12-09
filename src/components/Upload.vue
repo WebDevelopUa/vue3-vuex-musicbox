@@ -32,7 +32,7 @@
 
         <hr class="my-6"/>
 
-        <!-- Progess Bars -->
+        <!-- Progress Bars -->
         <div v-for="upload in uploads"
              :key="upload.name"
              class="mb-4">
@@ -152,6 +152,16 @@ export default {
       // console.log('... files Object... :', $event.dataTransfer.files);
       // console.log('... files Array... :', files);
     },
+  },
+  beforeUnmount() {
+    console.log('beforeUnmount()');
+    // cancel upload before the component unmounted / switch to another page
+    this.uploads.forEach(
+      (upload) => {
+        console.log('cancel upload');
+        upload.task.cancel();
+      },
+    );
   },
 };
 </script>
