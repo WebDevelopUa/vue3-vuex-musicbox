@@ -153,25 +153,25 @@ export default {
       // console.log('... files Array... :', files);
     },
     cancelUploads() {
-      console.log(' cancelUploads()');
-      // 1) cancel upload before the component unmounted / switch to another page
+      console.log('2) cancelUploads()');
+      // 2) cancel upload using Navigation Guard and references
       this.uploads.forEach(
         (upload) => {
-          console.log('cancel upload');
+          console.log('cancel upload 2');
           upload.task.cancel();
         },
       );
     },
   },
-  // beforeUnmount() {
-  //   console.log('beforeUnmount()');
-  //   // 2) cancel upload before the component unmounted / switch to another page
-  //   this.uploads.forEach(
-  //     (upload) => {
-  //       console.log('cancel upload');
-  //       upload.task.cancel();
-  //     },
-  //   );
-  // },
+  beforeUnmount() {
+    console.log('1) cancel upload beforeUnmount()');
+    // 1) cancel upload before the component unmounted / switch to another page
+    this.uploads.forEach(
+      (upload) => {
+        console.log('cancel upload 1');
+        upload.task.cancel();
+      },
+    );
+  },
 };
 </script>
