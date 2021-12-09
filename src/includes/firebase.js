@@ -23,13 +23,18 @@ const auth = firebase.auth();
 // Firestore Service (name, country, etc.)
 const db = firebase.firestore();
 const usersCollection = db.collection('users');
+const songsCollection = db.collection('songs');
 
 // Mp3 file storage on Firebase
 const storage = firebase.storage();
 
 // Name exports
 export {
-  auth, db, usersCollection, storage,
+  auth,
+  db,
+  usersCollection,
+  songsCollection,
+  storage,
 };
 
 // export default firebase.initializeApp(firebaseConfig);

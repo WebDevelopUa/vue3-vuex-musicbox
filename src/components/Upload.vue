@@ -56,7 +56,7 @@
 
 <script>
 
-import {storage, auth} from '@/includes/firebase';
+import { storage, auth, songsCollection } from '@/includes/firebase';
 
 export default {
   name: 'Upload',
@@ -113,8 +113,7 @@ export default {
               console.log(error);
             },
             async () => {
-
-              // let us know who upload the file
+              // song object lets us know who upload the file
               const song = {
                 uid: auth.currentUser.uid,
                 displayName: auth.currentUser.displayName,
@@ -126,6 +125,9 @@ export default {
 
               // URL to the file
               song.url = await task.snapshot.ref.getDownloadURL();
+
+              // add song object to songs collection DB
+              await songsCollection.add(song);
 
               this.uploads[uploadIndex].variant = 'bg-green-400';
               this.uploads[uploadIndex].icon = 'fas fa-check';

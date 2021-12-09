@@ -18,9 +18,9 @@ Vue v3 Music Box Web App
 * Firebase account, JS SDK_VERSION 9.5.0
 * Firebase Storage
 * Firebase Authentication
-* Firestore DB collections:
-  * users
-  * songs
+* Firestore [DB collections](src/includes/firebase.js): `const db = firebase.firestore();`
+  * users: `const usersCollection = db.collection('users');`
+  * songs: `const songsCollection = db.collection('songs');`
 
 ------------
 
