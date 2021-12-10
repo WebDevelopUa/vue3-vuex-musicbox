@@ -57,18 +57,76 @@ export default {
   data() {
     return {
       songs: [],
+      maxPerPage: 3,
+      pendingRequest: false,
     };
   },
   async created() {
     //  retrieve the data from Firebase when open Home
-    const snapshots = await songsCollection.get();
-    snapshots.forEach(
-      (document) => this.songs.push({
-        docId: document.id,
-        ...document.data(),
-      }),
-    );
+    // problematic with huge amount of records
+    // solution: implement infinite scroll
+    await this.getSongs();
+
+    // detect when the user scrolls the page
+    window.addEventListener('scroll', this.handleScroll);
   },
-  components: { SongItem },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    async getSongs() {
+      if (this.pendingRequest) {
+        return;
+      }
+
+      // in progress ... pending request
+      this.pendingRequest = true;
+
+      let snapshots;
+      if (this.songs.length) {
+        const lastDoc = await songsCollection
+          .doc(this.songs[this.songs.length - 1].docID)
+          .get();
+        snapshots = await songsCollection
+          .orderBy('modifiedName')
+          .startAfter(lastDoc)
+          .limit(this.maxPerPage)
+          .get();
+      } else {
+        snapshots = await songsCollection
+          .orderBy('modifiedName')
+          .limit(this.maxPerPage)
+          .get();
+      }
+
+      snapshots.forEach(
+        (document) => this.songs.push({
+          docID: document.id,
+          ...document.data(),
+        }),
+      );
+
+      this.pendingRequest = false;
+    },
+    handleScroll() {
+      // offsetHeight = innerHeight + scrollTop properties
+      const { scrollTop, offsetHeight } = document.documentElement;
+      const { innerHeight } = window;
+      const bottomOfWindow = (Math.round(scrollTop) + innerHeight) === offsetHeight;
+
+      if (bottomOfWindow) {
+        // detect when the user scrolled to the bottom of the page
+        // BUG in case of browser zooming
+        console.log('Bottom of window: ', bottomOfWindow);
+
+        //  init Infinite scrolling
+        this.getSongs();
+      }
+    },
+  },
+  components: {
+    SongItem,
+  },
+
 };
 </script>
