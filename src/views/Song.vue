@@ -33,7 +33,9 @@
 
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <!-- Comment Count -->
-          <span class="card-title">Comments (15)</span>
+          <span class="card-title">
+            Comments ({{ song.commentCount }})
+          </span>
           <small class="text-orange"> <i> ... Please, login to leave the comment</i></small>
           <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
         </div>
@@ -178,6 +180,12 @@ export default {
       };
 
       await commentsCollection.add(comment);
+
+      // increment comments / stored in Firestore DB
+      this.song.commentCount += 1;
+      await songsCollection.doc(this.$route.params.id).update({
+        commentCount: this.song.commentCount,
+      });
 
       // retrieve comments
       await this.getComments();
