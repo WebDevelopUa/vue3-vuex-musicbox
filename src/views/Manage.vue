@@ -4,7 +4,9 @@
 
       <!-- Uploading files -->
       <!-- Attach reference property to cancel upload using Navigation Guard and references  -->
-      <AppUpload ref="upload"/>
+      <AppUpload ref="upload"
+                 :addSongProp="addSong"
+      />
       <!-- ./Uploading files -->
 
       <!-- Music list -->
@@ -20,9 +22,9 @@
             <ListItem v-for="(song, i) in songs"
                       :key="song.docID"
                       :songProp="song"
-                      :updateSongCallBack="updateSong"
+                      :updateSongProp="updateSong"
                       :indexProp="i"
-                      :removeSongCallBack="removeSong"
+                      :removeSongProp="removeSong"
             />
 
           </div>
@@ -61,22 +63,21 @@ export default {
     removeSong(i) {
       this.songs.splice(i, 1);
     },
+    addSong(document) {
+      const song = {
+        ...document.data(),
+        docID: document.id,
+      };
+
+      this.songs.push(song);
+    },
   },
   async created() {
     //  retrieve the data from DB before the component gets loaded on the page
     // asynchronous request data from DB / querying the documents (objects) / chaining by get() - return Snapshot
     const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid).get();
 
-    snapshot.forEach(
-      (document) => {
-        const song = {
-          ...document.data(),
-          docID: document.id,
-        };
-
-        this.songs.push(song);
-      },
-    );
+    snapshot.forEach(this.addSong);
   },
   beforeRouteLeave(to, from, next) {
     // 2) cancel upload using Navigation Guard and references

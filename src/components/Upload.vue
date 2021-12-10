@@ -73,6 +73,7 @@ export default {
       uploads: [],
     };
   },
+  props: ['addSongProp'],
   methods: {
     upload($event) {
       this.isDragOver = false;
@@ -135,7 +136,16 @@ export default {
               song.url = await task.snapshot.ref.getDownloadURL();
 
               // add song object to songs collection DB
-              await songsCollection.add(song);
+              // return the document reference / need to pass it to Manage component to update the list of items on Success upload
+              const songRef = await songsCollection.add(song);
+
+              // Callback function from parent component / push the data to songs array in Manage
+              // Uncaught (in promise) TypeError: document.data is not a function / because we're storing the document in var
+              // this.addSongProp(songRef);
+
+              // expecting snapshot / not a reference
+              const songSnapshot = await songRef.get();
+              this.addSongProp(songSnapshot);
 
               this.uploads[uploadIndex].variant = 'bg-green-400';
               this.uploads[uploadIndex].icon = 'fas fa-check';

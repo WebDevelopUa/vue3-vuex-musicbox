@@ -112,7 +112,7 @@ export default {
       }
 
       // update data in parent component
-      this.updateSongCallBack(this.indexProp, values);
+      this.updateSongProp(this.indexProp, values);
 
       this.inSubmission = false;
       this.alertVariant = 'bg-green-400';
@@ -135,7 +135,7 @@ export default {
       await songsCollection.doc(this.songProp.docID).delete();
 
       //  update the list of items in parent component
-      this.removeSongCallBack(this.indexProp);
+      this.removeSongProp(this.indexProp);
     },
   },
   props: {
@@ -143,11 +143,11 @@ export default {
       type: Object,
       required: true,
     },
-    updateSongCallBack: {
+    updateSongProp: {
       type: Function,
       required: true,
     },
-    removeSongCallBack: {
+    removeSongProp: {
       type: Function,
       required: true,
     },
