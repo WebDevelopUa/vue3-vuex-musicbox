@@ -531,6 +531,44 @@ service firebase.storage {
 * **Reference** - not reactive - directly access the DOM without updating the Vue Instance; data doesn't change
 * **Reactivity** - data changes; Vue instance is updated; Vue updates the template; template gets rendered onto DOM
 
+[Create a Cloud Storage reference on Web](https://firebase.google.com/docs/storage/web/create-reference?hl=uk)    
+[Delete files with Cloud Storage on Web](https://firebase.google.com/docs/storage/web/delete-files?hl=uk) using ref:
+
+```js
+import {getStorage, ref, deleteObject} from "firebase/storage";
+
+const storage = getStorage();
+
+// Create a reference to the file to delete
+const desertRef = ref(storage, 'images/desert.jpg');
+
+// Delete the file
+deleteObject(desertRef).then(() => {
+    // File deleted successfully
+}).catch((error) => {
+    // Uh-oh, an error occurred!
+});
+```
+
+[Structuring Cloud Firestore Security Rules](https://firebase.google.com/docs/firestore/security/rules-structure)
+[Change Firebase Storage rules](https://console.firebase.google.com/project/vue3-vuex-musicbox/storage/vue3-vuex-musicbox.appspot.com/rules):
+
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true; 
+      allow write: if request.auth != null &&
+       (request.resource.contentType.matches("audio/mpeg") ||
+       request.resource.contentType.matches("video/mp4")) &&
+       request.resource.size < 10 * 1024 * 1024;
+       allow delete: if request.auth != null;
+    }
+  }
+}
+```
+
 -------------------------
 -------------------------
 

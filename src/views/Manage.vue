@@ -22,6 +22,7 @@
                       :songProp="song"
                       :updateSongCallBack="updateSong"
                       :indexProp="i"
+                      :removeSongCallBack="removeSong"
             />
 
           </div>
@@ -56,6 +57,9 @@ export default {
     updateSong(i, values) {
       this.songs[i].modifiedName = values.modifiedName;
       this.songs[i].genre = values.genre;
+    },
+    removeSong(i) {
+      this.songs.splice(i, 1);
     },
   },
   async created() {

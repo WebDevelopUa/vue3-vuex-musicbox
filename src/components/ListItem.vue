@@ -6,9 +6,14 @@
       <h4 class="inline-block text-2xl font-bold">
         {{ songProp.modifiedName }}
       </h4>
-      <button class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right">
+
+      <!-- Delete button -->
+      <button @click.prevent="deleteSong"
+              class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right">
         <i class="fa fa-times"></i>
       </button>
+
+      <!-- Edit button -->
       <button @click.prevent="showForm = !showForm"
               class="ml-1 py-1 px-2 text-sm rounded text-white bg-blue-600 float-right">
         <i class="fa fa-pencil-alt"></i>
@@ -69,7 +74,7 @@
 
 <script>
 
-import { songsCollection } from '@/includes/firebase';
+import { songsCollection, storage } from '@/includes/firebase';
 
 export default {
   name: 'ListItem',
@@ -113,6 +118,25 @@ export default {
       this.alertVariant = 'bg-green-400';
       this.alertMessage = 'Success';
     },
+    async deleteSong() {
+      console.log('Delete song');
+
+      //  reference to the root of the storage
+      const storageRef = storage.ref();
+
+      //  reference to the specific file of the storage
+      const songRef = storageRef.child(`songs/${this.songProp.originalName}`);
+
+      //  delete item in Firebase Storage
+      await songRef.delete();
+
+      //  delete item in Firestore DB / collection
+      // select the document of collection
+      await songsCollection.doc(this.songProp.docID).delete();
+
+      //  update the list of items in parent component
+      this.removeSongCallBack(this.indexProp);
+    },
   },
   props: {
     songProp: {
@@ -120,6 +144,10 @@ export default {
       required: true,
     },
     updateSongCallBack: {
+      type: Function,
+      required: true,
+    },
+    removeSongCallBack: {
       type: Function,
       required: true,
     },
