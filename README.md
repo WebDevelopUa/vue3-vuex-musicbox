@@ -434,6 +434,23 @@ export default {
 }
 ```
 
+
+### [Dynamic Route Matching](https://router.vuejs.org/guide/essentials/dynamic-matching.html)
+
+Retract the URL, place it like an Object
+
+[router/index.js](src/router/index.js)
+
+```vue
+import Song from '@/views/Song.vue';
+
+  {
+    name: 'song',
+    path: '/song/:id',
+    component: Song,
+  },
+```
+
 -------------------------
 
 ## Uploading files to FireStorage

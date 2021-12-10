@@ -3,9 +3,12 @@
     class="flex justify-between items-center p-3 pl-6 cursor-pointer transition duration-300 hover:bg-gray-50">
 
     <div>
-      <a href="#" class="font-bold block text-gray-600">
+      <!-- Dynamic routing to Song item -->
+      <router-link
+        :to="{name: 'song', params: {id: songProp.docID}}"
+        class="font-bold block text-gray-600">
         {{ songProp.modifiedName }}
-      </a>
+      </router-link>
       <span class="text-gray-500 text-sm">
         {{ songProp.displayName }}
       </span>
