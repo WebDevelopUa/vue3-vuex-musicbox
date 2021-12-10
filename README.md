@@ -23,6 +23,7 @@ Vue v3 Music Box Web App
     * users: `const usersCollection = db.collection('users');`
     * songs: `const songsCollection = db.collection('songs');`
     * comments: `const commentsCollection = db.collection('comments');`
+* [Howler.js](https://howlerjs.com) 2.2.3
 
 ------------
 
@@ -599,6 +600,15 @@ service firebase.storage {
   }
 }
 ```
+
+-------------------------
+
+## Player
+
+* Store Song in the state - user can listen to the music on all routes
+* [Howler.js](https://howlerjs.com) - Check supported audio codecs: "mp3", "mpeg", "opus", "ogg", "oga", "wav", "aac", "
+  caf", "m4a", "m4b", "mp4", "  weba", "webm", "dolby", "flac".
+* Vue UI => Add new dependency => Howler => Install
 
 -------------------------
 -------------------------

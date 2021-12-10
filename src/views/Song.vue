@@ -9,8 +9,10 @@
       <div class="container mx-auto flex items-center">
 
         <!-- Play/Pause Button -->
-        <button type="button"
-                class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full        focus:outline-none">
+        <!-- map newSong(song) action -->
+        <button @click.prevent="newSong(song)"
+                type="button"
+                class="z-50 h-24 w-24 text-3xl bg-white text-black rounded-full focus:outline-none">
           <i class="fas fa-play"></i>
         </button>
         <div class="z-50 text-left ml-8">
@@ -108,7 +110,7 @@
 
 <script>
 
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import {
   songsCollection,
   auth,
@@ -164,6 +166,8 @@ export default {
     await this.getComments();
   },
   methods: {
+    // map newSong(song) action from the store
+    ...mapActions(['newSong']),
     async addComment(values, { resetForm }) {
       this.commentShowAlert = true;
       this.commentInSubmission = true;
