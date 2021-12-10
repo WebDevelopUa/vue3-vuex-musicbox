@@ -24,6 +24,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const usersCollection = db.collection('users');
 const songsCollection = db.collection('songs');
+const commentsCollection = db.collection('comments');
 
 // Mp3 file storage on Firebase
 const storage = firebase.storage();
@@ -34,6 +35,7 @@ export {
   db,
   usersCollection,
   songsCollection,
+  commentsCollection,
   storage,
 };
 

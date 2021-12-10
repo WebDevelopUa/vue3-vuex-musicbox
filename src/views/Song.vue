@@ -27,108 +27,76 @@
       </div>
     </section>
 
-    <!-- Form -->
+    <!-- Form section -->
     <section class="container mx-auto mt-6">
       <div class="bg-white rounded border border-gray-200 relative flex flex-col">
+
         <div class="px-6 pt-6 pb-5 font-bold border-b border-gray-200">
           <!-- Comment Count -->
           <span class="card-title">Comments (15)</span>
+          <small class="text-orange"> <i> ... Please, login to leave the comment</i></small>
           <i class="fa fa-comments float-right text-green-400 text-2xl"></i>
         </div>
+
         <div class="p-6">
-          <form>
-          <textarea
-            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition
-              duration-500 focus:outline-none focus:border-black rounded mb-4"
-            placeholder="Your comment here..."></textarea>
-            <button type="submit" class="py-1.5 px-3 rounded text-white bg-green-600 block">
+
+          <!--  Info message  -->
+          <div v-if="commentShowAlert"
+               :class="commentAlertVariant"
+               class="text-white text-center font-bold p-4 mb-4">
+            {{ commentAlertMessage }}
+          </div>
+
+          <!--  FORM is visible only for Auth users -->
+          <VeeForm
+            v-if="userLoggedIn"
+            @submit="addComment"
+            :validation-schema="schema">
+            <VeeField as="textarea"
+                      name="comment"
+                      class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded mb-4"
+                      placeholder="Your comment here...">
+            </VeeField>
+            <ErrorMessage name="comment" class="text-red-600"/>
+
+            <button :disabled="commentInSubmission"
+                    type="submit"
+                    class="py-1.5 px-3 rounded text-white bg-green-600 block">
               Submit
             </button>
-          </form>
+          </VeeForm>
+
           <!-- Sort Comments -->
-          <select
-            class="block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition
-          duration-500 focus:outline-none focus:border-black rounded">
+          <select v-model="sort"
+                  class="block mt-4 py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded">
             <option value="1">Latest</option>
             <option value="2">Oldest</option>
           </select>
+
         </div>
       </div>
     </section>
 
-    <!-- Comments -->
+    <!-- Comments Sorted array -->
     <ul class="container mx-auto">
-      <li class="p-6 bg-gray-50 border border-gray-200">
+      <li v-for="comment in sortedComments"
+          :key="comment.docID"
+          class="p-6 bg-gray-50 border border-gray-200">
+
         <!-- Comment Author -->
         <div class="mb-5">
-          <div class="font-bold">Elaine Dreyfuss</div>
-          <time>5 mins ago</time>
+          <div class="font-bold">
+            {{ comment.name }}
+          </div>
+          <time>
+            {{ comment.datePosted }}
+          </time>
         </div>
 
         <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium der doloremque laudantium.
+          {{ comment.content }}
         </p>
-      </li>
-      <li class="p-6 bg-gray-50 border border-gray-200">
-        <!-- Comment Author -->
-        <div class="mb-5">
-          <div class="font-bold">Elaine Dreyfuss</div>
-          <time>5 mins ago</time>
-        </div>
 
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium der doloremque laudantium.
-        </p>
-      </li>
-      <li class="p-6 bg-gray-50 border border-gray-200">
-        <!-- Comment Author -->
-        <div class="mb-5">
-          <div class="font-bold">Elaine Dreyfuss</div>
-          <time>5 mins ago</time>
-        </div>
-
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium der doloremque laudantium.
-        </p>
-      </li>
-      <li class="p-6 bg-gray-50 border border-gray-200">
-        <!-- Comment Author -->
-        <div class="mb-5">
-          <div class="font-bold">Elaine Dreyfuss</div>
-          <time>5 mins ago</time>
-        </div>
-
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium der doloremque laudantium.
-        </p>
-      </li>
-      <li class="p-6 bg-gray-50 border border-gray-200">
-        <!-- Comment Author -->
-        <div class="mb-5">
-          <div class="font-bold">Elaine Dreyfuss</div>
-          <time>5 mins ago</time>
-        </div>
-
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium der doloremque laudantium.
-        </p>
-      </li>
-      <li class="p-6 bg-gray-50 border border-gray-200">
-        <!-- Comment Author -->
-        <div class="mb-5">
-          <div class="font-bold">Elaine Dreyfuss</div>
-          <time>5 mins ago</time>
-        </div>
-
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium der doloremque laudantium.
-        </p>
       </li>
     </ul>
 
@@ -137,14 +105,43 @@
 
 <script>
 
-import { songsCollection } from '@/includes/firebase';
+import { mapState } from 'vuex';
+import {
+  songsCollection,
+  auth,
+  commentsCollection,
+} from '@/includes/firebase';
 
 export default {
   name: 'Song',
   data() {
     return {
       song: {},
+      schema: {
+        comment: 'required|min:3',
+      },
+      commentInSubmission: false,
+      commentShowAlert: false,
+      commentAlertVariant: 'bg-blue-500',
+      commentAlertMessage: 'Please wait, comment is been submitted',
+      comments: [],
+      sort: '1',
     };
+  },
+  computed: {
+    ...mapState(['userLoggedIn']),
+    sortedComments() {
+      // slice() creates new array (copy) to sort()
+      return this.comments.slice().sort(
+        (a, b) => {
+          if (this.sort === '1') {
+            return new Date(b.datePosted) - new Date(a.datePosted);
+          }
+
+          return new Date(a.datePosted) - new Date(b.datePosted);
+        },
+      );
+    },
   },
   async created() {
     const docSnapshot = await songsCollection.doc(this.$route.params.id).get();
@@ -155,6 +152,53 @@ export default {
     }
 
     this.song = docSnapshot.data();
+
+    // retrieve comments
+    await this.getComments();
+  },
+  methods: {
+    async addComment(values, { resetForm }) {
+      this.commentShowAlert = true;
+      this.commentInSubmission = true;
+      this.commentAlertVariant = 'bg-blue-500';
+      this.commentAlertMessage = 'Please wait, comment is been submitted';
+
+      // add comments to Firestore DB
+      const comment = {
+        content: values.comment,
+        datePosted: new Date().toString(),
+        sid: this.$route.params.id,
+        name: auth.currentUser.displayName,
+        uid: auth.currentUser.uid,
+      };
+
+      await commentsCollection.add(comment);
+
+      // retrieve comments
+      await this.getComments();
+
+      this.commentInSubmission = true;
+      this.commentAlertVariant = 'bg-green-500';
+      this.commentAlertMessage = 'Comment added';
+
+      resetForm();
+
+      console.log(' async addComment(values): ', values);
+    },
+    async getComments() {
+      const snapshots = await commentsCollection
+        .where('sid', '==', this.$route.params.id)
+        .get();
+
+      this.comments = [];
+
+      snapshots.forEach(
+        (doc) => this.comments.push({
+          docID: doc.id,
+          ...doc.data(),
+        }),
+      );
+    },
   },
 };
 </script>

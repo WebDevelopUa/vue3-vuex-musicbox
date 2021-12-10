@@ -22,6 +22,7 @@ Vue v3 Music Box Web App
 * Firestore [DB collections](src/includes/firebase.js): `const db = firebase.firestore();`
     * users: `const usersCollection = db.collection('users');`
     * songs: `const songsCollection = db.collection('songs');`
+    * comments: `const commentsCollection = db.collection('comments');`
 
 ------------
 
