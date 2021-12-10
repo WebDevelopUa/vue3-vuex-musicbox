@@ -435,14 +435,13 @@ export default {
 }
 ```
 
-
 ### [Dynamic Route Matching](https://router.vuejs.org/guide/essentials/dynamic-matching.html)
 
 Retract the URL, place it like an Object
 
 [router/index.js](src/router/index.js)
 
-```vue
+```
 import Song from '@/views/Song.vue';
 
   {
@@ -451,6 +450,20 @@ import Song from '@/views/Song.vue';
     component: Song,
   },
 ```
+
+### Query parameters
+
+* Send additional data to the server through URL
+* Vue router supports Query parameters
+* Used to save the sorting/filtering order on page reload
+* Vue DevTools => Timeline => (CHANGE SORT ORDER) => Router Navigations => Router not reloading component
+
+```
+protocol://domain.com/path/pathParams/or/endpoint?queryParams=sort&order=1
+```
+
+Path parameters should be used for returning a single resource or multiple resources
+
 
 -------------------------
 
