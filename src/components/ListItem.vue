@@ -35,37 +35,48 @@
                :initial-values="songProp"
                @submit="edit"
       >
+
         <div class="mb-3">
           <label class="inline-block mb-2">
             Title
           </label>
-          <VeeField type="text"
-                    name="modifiedName"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
+          <VeeField
+            @input="updateUnsavedFlagProp(true)"
+            name="modifiedName"
+            type="text"
+            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
                         transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Enter Song Title"/>
+            placeholder="Enter Song Title"/>
           <ErrorMessage name="modifiedName" class="text-red-500"/>
         </div>
+
         <div class="mb-3">
           <label class="inline-block mb-2">
             Genre
           </label>
-          <VeeField name="genre"
-                    type="text"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
+          <VeeField
+            @input="updateUnsavedFlagProp(true)"
+            name="genre"
+            type="text"
+            class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300
                         transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Enter Genre"/>
+            placeholder="Enter Genre"/>
           <ErrorMessage name="genre" class="text-red-500"/>
         </div>
+
+        <!--  Submit button   -->
         <button type="submit" class="py-1.5 px-3 rounded text-white bg-green-600">
           Submit
         </button>
+
+        <!-- Go Back button   -->
         <button :disabled="inSubmission"
                 @click.prevent="showForm = false"
                 type="button"
                 class="py-1.5 px-3 rounded text-white bg-gray-600">
           Go Back
         </button>
+
       </VeeForm>
     </div>
 
@@ -114,6 +125,10 @@ export default {
       // update data in parent component
       this.updateSongProp(this.indexProp, values);
 
+      // prevent navigate away / lose changes before submit
+      // false - turn the flag off / true - there are unsaved changes
+      this.updateUnsavedFlagProp(false);
+
       this.inSubmission = false;
       this.alertVariant = 'bg-green-400';
       this.alertMessage = 'Success';
@@ -154,6 +169,9 @@ export default {
     indexProp: {
       type: Number,
       required: true,
+    },
+    updateUnsavedFlagProp: {
+      type: Function,
     },
   },
 };

@@ -25,6 +25,7 @@
                       :updateSongProp="updateSong"
                       :indexProp="i"
                       :removeSongProp="removeSong"
+                      :updateUnsavedFlagProp="updateUnsavedFlag"
             />
 
           </div>
@@ -51,6 +52,7 @@ export default {
   data() {
     return {
       songs: [],
+      unsavedFlag: false,
     };
   },
   methods: {
@@ -71,6 +73,9 @@ export default {
 
       this.songs.push(song);
     },
+    updateUnsavedFlag(value) {
+      this.unsavedFlag = value;
+    },
   },
   async created() {
     //  retrieve the data from DB before the component gets loaded on the page
@@ -80,9 +85,18 @@ export default {
     snapshot.forEach(this.addSong);
   },
   beforeRouteLeave(to, from, next) {
+    // prevent navigate away / lose changes before submit
+    if (!this.unsavedFlag) {
+      next();
+    } else {
+      // eslint-disable-next-line no-alert, no-restricted-globals
+      const leave = confirm('You want to leave?');
+      next(leave);
+    }
+
     // 2) cancel upload using Navigation Guard and references
-    this.$refs.upload.cancelUploads();
-    next();
+    // this.$refs.upload.cancelUploads();
+    // next();
   },
   // move this logic to the global level
   // // (used for only this component) method runs before component render (Navigation Guards)
