@@ -117,6 +117,11 @@ export default createStore({
 
     //  play new song from the Song State
     async newSong({ commit, state, dispatch }, payload) {
+      // deleting the instance of Howl
+      if (state.sound instanceof Howl) {
+        state.sound.unload();
+      }
+
       commit('newSong', payload);
 
       state.sound.play();
