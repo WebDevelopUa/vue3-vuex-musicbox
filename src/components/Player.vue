@@ -14,7 +14,7 @@
       <!-- Current Position -->
       <div class="float-left w-7 h-7 leading-3 text-gray-400 mt-0 text-lg w-14 ml-5 mt-1">
         <span class="player-currenttime">
-          00:00
+        {{ seek }}
         </span>
       </div>
 
@@ -47,7 +47,7 @@
       <!-- Duration -->
       <div class="float-left w-7 h-7 leading-3 text-gray-400 mt-0 text-lg w-14 ml-8 mt-1">
         <span class="player-duration">
-          03:06
+        {{ duration }}
         </span>
       </div>
 
@@ -58,12 +58,17 @@
 
 <script>
 
-import { mapActions, mapGetters } from 'vuex';
+import {
+  mapActions,
+  mapGetters,
+  mapState,
+} from 'vuex';
 
 export default {
   name: 'AppPlayer',
   computed: {
     ...mapGetters(['playing']),
+    ...mapState(['seek', 'duration']),
   },
   methods: {
     ...mapActions(['toggleAudio']),

@@ -10,6 +10,8 @@ export default createStore({
     // init the Song State
     currentSong: {},
     sound: {},
+    seek: '00:00',
+    duration: '00:00',
   },
   mutations: {
     toggleAuthModal: (state) => {
@@ -27,6 +29,10 @@ export default createStore({
         src: [payload.url],
         html5: true,
       });
+    },
+    updatePosition(state) {
+      state.seek = state.sound.seek();
+      state.duration = state.sound.duration();
     },
   },
   getters: {
@@ -107,10 +113,17 @@ export default createStore({
     },
 
     //  play new song from the Song State
-    async newSong({ commit, state }, payload) {
+    async newSong({ commit, state, dispatch }, payload) {
       commit('newSong', payload);
 
       state.sound.play();
+
+      // update Song State property when start playing
+      // listen the event 'play'
+      state.sound.on('play',
+        () => requestAnimationFrame(
+          () => dispatch('progress'),
+        ));
 
       console.log('newSong({ commit }, payload) action');
     },
@@ -126,6 +139,18 @@ export default createStore({
         state.sound.pause();
       } else {
         state.sound.play();
+      }
+    },
+
+    progress({ commit, state, dispatch }) {
+      // commit a mutation of player State
+      commit('updatePosition');
+
+      // dispatch the progress function again
+      if (state.sound.playing()) {
+        requestAnimationFrame(
+          () => dispatch('progress'),
+        );
       }
     },
   },
