@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 // @ - path from the 'src'
 import { Howl } from 'howler';
 import { auth, usersCollection } from '@/includes/firebase';
+import helper from '@/includes/helper';
 
 export default createStore({
   state: {
@@ -31,8 +32,8 @@ export default createStore({
       });
     },
     updatePosition(state) {
-      state.seek = state.sound.seek();
-      state.duration = state.sound.duration();
+      state.seek = helper.formatTime(state.sound.seek());
+      state.duration = helper.formatTime(state.sound.duration());
     },
   },
   getters: {
