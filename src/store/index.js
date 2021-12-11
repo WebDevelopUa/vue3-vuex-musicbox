@@ -30,6 +30,18 @@ export default createStore({
     },
   },
   getters: {
+    // Vuex allows us to define "getters" in the store.
+    // You can think of them as computed properties for stores.
+    // getter's result is cached based on its dependencies,
+    // and will only re-evaluate when some of its dependencies have changed
+    playing: (state) => {
+      if (state.sound.playing) {
+        return state.sound.playing();
+      }
+
+      return false;
+    },
+
     // removed / replaced with 'mapState' from vuex
     // authModalShow: (state) => {
     //   console.log('... getter ...', state);
@@ -103,5 +115,18 @@ export default createStore({
       console.log('newSong({ commit }, payload) action');
     },
 
+    async toggleAudio({ state }) {
+      console.log(' async toggleAudio({state})');
+
+      if (!state.sound.playing) {
+        return;
+      }
+
+      if (state.sound.playing()) {
+        state.sound.pause();
+      } else {
+        state.sound.play();
+      }
+    },
   },
 });
