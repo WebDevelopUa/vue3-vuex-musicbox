@@ -20,27 +20,30 @@
 
       <!-- Scrub -->
       <div class="float-left w-7 h-7 leading-3 ml-7 mt-2 player-scrub">
-        <div class="absolute left-0 right-0 text-lg text-center mx-auto player-song-info">
+        <div v-if="currentSong.modifiedName"
+             class="absolute left-0 right-0 text-lg text-center mx-auto player-song-info">
           <span class="song-title">
-            Song Title
-          </span> by
-          <span class="song-artist">
-            Artist
+         {{ currentSong.modifiedName }}
           </span>
+          <small>
+            <i class="song-artist">
+              (Uploaded by {{ currentSong.displayName }})
+            </i>
+          </small>
         </div>
 
         <!-- Scrub Container  -->
         <span class="block w-full h-2 rounded m-1 mt-2 bg-gray-200 relative cursor-pointer">
 
           <!-- Player Ball -->
-          <span class="absolute top-neg-8 text-gray-800 text-lg"
-                style="left: 50%;">
+          <span :style="{ left: playerProgress }"
+                class="absolute top-neg-8 text-gray-800 text-lg">
             <i class="fas fa-circle"></i>
           </span>
 
-          <!-- Player Progress Bar-->
-          <span class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"
-                style="width: 50%;"></span>
+          <!-- Player Progress Bar -->
+          <span :style="{ width: playerProgress }"
+                class="block h-2 rounded bg-gradient-to-r from-green-500 to-green-400"></span>
         </span>
       </div>
 
@@ -68,7 +71,7 @@ export default {
   name: 'AppPlayer',
   computed: {
     ...mapGetters(['playing']),
-    ...mapState(['seek', 'duration']),
+    ...mapState(['seek', 'duration', 'playerProgress', 'currentSong']),
   },
   methods: {
     ...mapActions(['toggleAudio']),
