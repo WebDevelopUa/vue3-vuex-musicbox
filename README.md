@@ -610,6 +610,75 @@ service firebase.storage {
   caf", "m4a", "m4b", "mp4", "  weba", "webm", "dolby", "flac".
 * Vue UI => Add new dependency => Howler => Install
 
+#### Update Seek Feature implementing process
+
+1. Edit [Player](src/components/Player.vue) component, add `updateSeek()` listen to click of element:
+
+```vue
+<!-- Scrub Container  -->
+<span @click.prevent="updateSeek"
+      class="block w-full h-2 rounded m-1 mt-2 bg-gray-200 relative cursor-pointer">
+</span>
+```
+
+2. Define the function in the [Store](src/store/index.js) as an action function, because we'll change the State
+
+```js
+
+export default createStore({
+    state: {
+        authModalShow: false,
+        userLoggedIn: false,
+        // init the Song State
+        currentSong: {},
+        sound: {},
+        seek: '00:00',
+        duration: '00:00',
+        playerProgress: '0%',
+    },
+    actions: {
+        updateSeek({state, dispatch}, payload) {
+            if (!state.sound.playing) {
+                return;
+            }
+
+            // returning info about current element coordinates in dimensions
+            // x - distance from left side of the document to left side of the player
+            const {x, width} = payload.currentTarget.getBoundingClientRect();
+
+            // X-coordinate of the click on player timeline (moving thr dot horizontally)
+            // Document = 2000, Timeline = 1000, Click = 500, Distance = 500
+            const clickX = payload.clientX - x;
+            const percentage = clickX / width;
+            const seconds = state.sound.duration() * percentage;
+
+            // update the position
+            state.sound.seek(seconds);
+
+            // listen the event / callback function will run once
+            // dispatch the mutations to player
+            state.sound.once('seek',
+                () => dispatch('progress'));
+        },
+
+    }
+});
+
+```
+
+3. Edit [Player](src/components/Player.vue) component, add `updateSeek()` to:
+
+```js
+
+export default {
+    name: 'AppPlayer',
+    methods: {
+        ...mapActions(['toggleAudio', 'updateSeek']),
+    },
+};
+
+```
+
 -------------------------
 -------------------------
 

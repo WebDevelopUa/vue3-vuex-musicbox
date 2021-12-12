@@ -33,7 +33,8 @@
         </div>
 
         <!-- Scrub Container  -->
-        <span class="block w-full h-2 rounded m-1 mt-2 bg-gray-200 relative cursor-pointer">
+        <span @click.prevent="updateSeek"
+              class="block w-full h-2 rounded m-1 mt-2 bg-gray-200 relative cursor-pointer">
 
           <!-- Player Ball -->
           <span :style="{ left: playerProgress }"
@@ -74,7 +75,7 @@ export default {
     ...mapState(['seek', 'duration', 'playerProgress', 'currentSong']),
   },
   methods: {
-    ...mapActions(['toggleAudio']),
+    ...mapActions(['toggleAudio', 'updateSeek']),
   },
 };
 </script>

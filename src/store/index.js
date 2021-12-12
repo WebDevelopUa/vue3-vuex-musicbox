@@ -161,5 +161,30 @@ export default createStore({
         );
       }
     },
+
+    updateSeek({ state, dispatch }, payload) {
+      if (!state.sound.playing) {
+        return;
+      }
+
+      // returning info about current element coordinates in dimensions
+      // x - distance from left side of the document to left side of the player
+      const { x, width } = payload.currentTarget.getBoundingClientRect();
+
+      // X-coordinate of the click on player timeline (moving thr dot horizontally)
+      // Document = 2000, Timeline = 1000, Click = 500, Distance = 500
+      const clickX = payload.clientX - x;
+      const percentage = clickX / width;
+      const seconds = state.sound.duration() * percentage;
+
+      // update the position
+      state.sound.seek(seconds);
+
+      // listen the event / callback function will run once
+      // dispatch the mutations to player
+      state.sound.once('seek',
+        () => dispatch('progress'));
+    },
+
   },
 });
