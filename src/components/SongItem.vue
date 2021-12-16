@@ -15,10 +15,17 @@
     </div>
 
     <div class="text-gray-600 text-lg">
-            <span class="comments">
+      <!-- Dynamic routing to Song item #comments-->
+      <router-link
+        :to="{name: 'song', params: {id: songProp.docID}, hash: '#comments'}"
+        v-slot="{navigate}"
+        custom>
+            <span @click="navigate"
+                  class="comments">
               <i class="fa fa-comments text-gray-600"></i>
                     {{ songProp.commentCount }}
             </span>
+      </router-link>
     </div>
 
   </li>

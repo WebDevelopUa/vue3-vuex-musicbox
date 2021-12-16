@@ -62,7 +62,11 @@
 
 <script>
 
-import { storage, auth, songsCollection } from '@/includes/firebase';
+import {
+  storage,
+  auth,
+  songsCollection,
+} from '@/includes/firebase';
 
 export default {
   name: 'Upload',

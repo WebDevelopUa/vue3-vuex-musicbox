@@ -698,6 +698,35 @@ export default {
 
 -------------------------
 
+## Stacked Layouts
+
+* [UI components](https://headlessui.dev)
+* [heroicons](https://heroicons.com)
+* [Dashboard](https://tailwindui.com/components/application-ui/application-shells/stacked)
+* [Modal](https://tailwindui.com/components/application-ui/overlays/modals)
+* [Create Modal Tutorial](https://www.digitalocean.com/community/tutorials/vuejs-vue-modal-component)
+
+-------------------------
+
+* [Vue 3 with Typescript](https://stackoverflow.com/questions/70122887/missing-return-type-on-function-in-vue-3-with-typescript)
+* [Vue 3 with Typescript](https://github.com/vuejs/eslint-config-typescript/issues/16)
+
+```js
+<script lang="ts">
+```
+
+-------------------------
+
+* [emits](https://v3.ru.vuejs.org/ru/guide/migration/emits-option.html)
+* [emits](https://v3.ru.vuejs.org/ru/api/options-data.html#emits)
+* [Call Parents' Methods](https://dev.to/adnanbabakan/call-parents-methods-in-vue-or-literally-wherever-2i3b)
+
+> Vue 3 теперь предоставляет опцию emits, похожую на существующую опцию props.
+> Её можно использовать для объявления событий, которые могут быть сгенерированы
+> компонентом для своих родителей.
+
+-------------------------
+
 # musicbox
 
 ## Project setup
