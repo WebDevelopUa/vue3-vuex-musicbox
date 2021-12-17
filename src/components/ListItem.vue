@@ -85,7 +85,10 @@
 
 <script>
 
-import { songsCollection, storage } from '@/includes/firebase';
+import {
+  songsCollection,
+  storage,
+} from '@/includes/firebase';
 
 export default {
   name: 'ListItem',

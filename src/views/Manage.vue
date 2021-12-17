@@ -44,11 +44,17 @@
 
 import AppUpload from '@/components/Upload.vue';
 import ListItem from '@/components/ListItem.vue';
-import { songsCollection, auth } from '@/includes/firebase';
+import {
+  songsCollection,
+  auth,
+} from '@/includes/firebase';
 
 export default {
   name: 'Manage',
-  components: { ListItem, AppUpload },
+  components: {
+    ListItem,
+    AppUpload,
+  },
   data() {
     return {
       songs: [],
