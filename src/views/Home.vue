@@ -49,7 +49,9 @@
 
 <script>
 
-import { songsCollection } from '@/includes/firebase';
+import {
+  songsCollection,
+} from '@/includes/firebase';
 import SongItem from '@/components/SongItem.vue';
 
 export default {

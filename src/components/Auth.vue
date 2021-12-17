@@ -69,13 +69,19 @@
 
 <script>
 
-import { mapMutations, mapState } from 'vuex';
+import {
+  mapMutations,
+  mapState,
+} from 'vuex';
 import LoginModalForm from '@/components/LoginModalForm.vue';
 import RegisterModalForm from '@/components/RegisterModalForm.vue';
 
 export default {
   name: 'Auth',
-  components: { RegisterModalForm, LoginModalForm },
+  components: {
+    RegisterModalForm,
+    LoginModalForm,
+  },
   data() {
     return {
       tab: ['login', 'register'],
