@@ -1,7 +1,14 @@
-import { createStore } from 'vuex';
+import {
+  createStore,
+} from 'vuex';
 // @ - path from the 'src'
-import { Howl } from 'howler';
-import { auth, usersCollection } from '@/includes/firebase';
+import {
+  Howl,
+} from 'howler';
+import {
+  auth,
+  usersCollection,
+} from '@/includes/firebase';
 import helper from '@/includes/helper';
 
 export default createStore({
