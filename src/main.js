@@ -9,6 +9,7 @@ import { auth } from './includes/firebase';
 
 import './assets/tailwind.css';
 import './assets/main.css';
+import icon from '../directives/icon';
 
 // 1. Check the User Authenticated (load Firebase) before Vue App starts
 
@@ -27,6 +28,9 @@ auth.onAuthStateChanged(
       app.use(store);
       app.use(router);
       app.use(VeeValidatePlugin);
+
+      app.directive('icon', icon);
+
       app.mount('#app');
     }
   },
