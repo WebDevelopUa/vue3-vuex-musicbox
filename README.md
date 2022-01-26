@@ -681,6 +681,21 @@ export default {
 ```
 
 -------------------------
+
+## Localization
+
+* install [vue-cli-plugin-i18n plugin](https://www.npmjs.com/package/vue-cli-plugin-i18n)
+* restart `vue ui`
+* select [Localizations](http://localhost:8000/addon/org.kazupon.vue-i18n/)
+* check file [en.json](src/locales/en.json)
+
+```json5
+{
+  "listen": "Listen to Great Music!"
+}
+```
+
+-------------------------
 -------------------------
 
 ## SEO
