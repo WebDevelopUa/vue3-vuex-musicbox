@@ -10,6 +10,7 @@ import { auth } from './includes/firebase';
 import './assets/tailwind.css';
 import './assets/main.css';
 import icon from '../directives/icon';
+import i18n from './includes/i18n';
 
 // 1. Check the User Authenticated (load Firebase) before Vue App starts
 
@@ -18,7 +19,7 @@ let app;
 auth.onAuthStateChanged(
   () => {
     if (!app) {
-      app = createApp(App);
+      app = createApp(App).use(i18n);
       app.use(VueGtag, {
         property: {
           id: 'G-CH6ZVMFR57',

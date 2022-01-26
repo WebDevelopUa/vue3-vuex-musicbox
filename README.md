@@ -24,6 +24,7 @@ Vue v3 Music Box Web App
     * songs: `const songsCollection = db.collection('songs');`
     * comments: `const commentsCollection = db.collection('comments');`
 * [Howler.js](https://howlerjs.com) 2.2.3
+* [Vue I18n](https://vue-i18n.intlify.dev) Plugin 2.3.1
 
 ------------
 

@@ -6,4 +6,16 @@ module.exports = {
       title: 'Music Box - Vue3 App',
     },
   },
+
+  pluginOptions: {
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableLegacy: true,
+      runtimeOnly: false,
+      compositionOnly: false,
+      fullInstall: true,
+    },
+  },
 };
