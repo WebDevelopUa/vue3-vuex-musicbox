@@ -11,6 +11,7 @@ import './assets/tailwind.css';
 import './assets/main.css';
 import icon from '../directives/icon';
 import i18n from './includes/i18n';
+import './registerServiceWorker';
 
 // 1. Check the User Authenticated (load Firebase) before Vue App starts
 

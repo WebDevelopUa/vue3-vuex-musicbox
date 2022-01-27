@@ -25,6 +25,7 @@ Vue v3 Music Box Web App
     * comments: `const commentsCollection = db.collection('comments');`
 * [Howler.js](https://howlerjs.com) 2.2.3
 * [Vue I18n](https://vue-i18n.intlify.dev) Plugin 2.3.1
+* [PWA plugin](https://cli.vuejs.org/ru/core-plugins/pwa.html) 4.5.15
 
 ------------
 
@@ -694,6 +695,28 @@ export default {
   "listen": "Listen to Great Music!"
 }
 ```
+
+-------------------------
+
+## PWA
+
+* [Plugins](http://localhost:8000/plugins) => Add => @vue/cli-plugin-pwa
+* [Tasks](http://localhost:8000/tasks/) => build
+* Open [manifest.json](dist/manifest.json)
+* Run [index.html](dist/index.html)
+
+ ```html5
+
+<link rel="manifest" href="/manifest.json">
+```
+
+ ```html5
+
+<link rel="manifest" href="./manifest.json">
+```
+
+* Browser Dev Tools => App => Manifest
+* Browser Dev Tools => Lighthouse => PWA
 
 -------------------------
 -------------------------
