@@ -739,6 +739,21 @@ module.exports = {
 ```
 
 -------------------------
+
+## Caching / Service worker
+
+1. Cache, then Network:
+    * Client => Cache => Network => Cache => Client
+2. Network, then Cache:
+    * Client => Network => Cache => Network => Client
+3. [service-worker.js](dist/service-worker.js)
+4. [registerServiceWorker.js](src/registerServiceWorker.js)
+5. [Workbox](https://developers.google.com/web/tools/workbox)
+6. Browser Dev Tools => App => Service Workers
+7. Browser Dev Tools => App => Storage => Clear site data
+8. Browser Dev Tools => App => Cache Storage
+
+-------------------------
 -------------------------
 
 ## SEO
