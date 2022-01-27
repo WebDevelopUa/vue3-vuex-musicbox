@@ -17,5 +17,12 @@ module.exports = {
       compositionOnly: false,
       fullInstall: true,
     },
+    pwa: {
+      name: 'Music Box App',
+      themeColor: '#3ae8ff',
+      manifestOptions: {
+        short_name: 'MusicBox',
+      },
+    },
   },
 };

@@ -5,6 +5,8 @@ Vue v3 Music Box Web App
 
 ### [Dashboard](http://localhost:8000/dashboard)
 
+### [PWA manifest](https://vue3-vuex-musicbox.vercel.app/manifest.json)
+
 ------------
 
 ### Prerequisites:
@@ -698,7 +700,7 @@ export default {
 
 -------------------------
 
-## PWA
+## [PWA](https://cli.vuejs.org/ru/core-plugins/pwa.html)
 
 * [Plugins](http://localhost:8000/plugins) => Add => @vue/cli-plugin-pwa
 * [Tasks](http://localhost:8000/tasks/) => build
@@ -717,6 +719,24 @@ export default {
 
 * Browser Dev Tools => App => Manifest
 * Browser Dev Tools => Lighthouse => PWA
+* [manifest.json](https://vue3-vuex-musicbox.vercel.app/manifest.json)
+* [vue.config.js](vue.config.js)
+
+```js 
+module.exports = {
+
+    pluginOptions: {
+        pwa: {
+            name: 'Music Box App',
+            themeColor: '#3ae8ff',
+            manifestOptions: {
+                short_name: 'MusicBox',
+            },
+        },
+    },
+};
+
+```
 
 -------------------------
 -------------------------
