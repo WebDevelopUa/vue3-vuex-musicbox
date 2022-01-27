@@ -24,6 +24,9 @@
           <div>
             {{ song.genre }}
           </div>
+          <div class="song-price">
+            {{ $n(1, 'currency', 'ja') }}
+          </div>
 
         </div>
       </div>
@@ -37,6 +40,8 @@
           <!-- Comment Count -->
           <span class="card-title">
             Comments ({{ song.commentCount }})
+            <span class="text-gray-400">| Translation: </span>
+            {{ $tc('song.commentCount', song.commentCount, {count: song.commentCount}) }}
           </span>
           <small class="text-orange"> <i> ... Please, login to leave the comment</i></small>
           <i class="fa fa-comments float-right text-green-400 text-2xl"></i>

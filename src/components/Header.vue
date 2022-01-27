@@ -34,6 +34,7 @@
           </li>
 
           <template v-else>
+
             <li>
               <router-link class="px-2 text-white"
                            :to="{name: 'manage'}"
@@ -53,6 +54,16 @@
 
         </ul>
 
+        <ul class="flex flex-row mt-1 ml-auto">
+          <li>
+            <a @click.prevent="changeLocale"
+               class="px-2 text-white"
+               href="#">
+              {{ currentLocale }}
+            </a>
+          </li>
+        </ul>
+
       </div>
     </nav>
   </header>
@@ -69,9 +80,18 @@ export default {
   name: 'Header',
   computed: {
     ...mapState(['userLoggedIn']),
+
+    currentLocale() {
+      return this.$i18n.locale === 'ru' ? 'Russian' : 'English';
+    },
+
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),
+
+    changeLocale() {
+      this.$i18n.locale = this.$i18n.locale === 'ru' ? 'en' : 'ru';
+    },
 
     // dispatch signOut action from component
     signOut() {

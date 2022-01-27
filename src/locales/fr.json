@@ -1,5 +1,12 @@
 {
   "home": {
     "listen": "Boîte à musique"
+  },
+  "register": {
+    "accept": "",
+    "tos": ""
+  },
+  "song": {
+    "commentCount": "Aucun commentaire | 1 commentaire | {count} commentaires "
   }
 }

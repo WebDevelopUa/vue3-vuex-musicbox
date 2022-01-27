@@ -1,5 +1,12 @@
 {
   "home": {
     "listen": "Music Box"
+  },
+  "register": {
+    "accept": "I Accept {0}",
+    "tos": "Terms of Service"
+  },
+  "song": {
+    "commentCount": "No comments | 1 Comment | {count} Comments"
   }
 }
