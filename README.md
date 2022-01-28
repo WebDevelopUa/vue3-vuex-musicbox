@@ -846,6 +846,13 @@ const Manage = () => import('@/views/Manage.vue');
 const Song = () => import('@/views/Song.vue');
 ```
 
+4. Group chunks
+
+```javascript
+const Manage = () => import(/* webpackChunkName: "groupedChunk" */'@/views/Manage.vue');
+const Song = () => import(/* webpackChunkName: "groupedChunk" */'@/views/Song.vue');
+```
+
 -------------------------
 -------------------------
 
