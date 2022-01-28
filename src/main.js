@@ -13,6 +13,8 @@ import icon from '../directives/icon';
 import i18n from './includes/i18n';
 import './registerServiceWorker';
 
+import GlobalComponents from './includes/_globals';
+
 // 1. Check the User Authenticated (load Firebase) before Vue App starts
 
 // Firebase receiving the event is User logged in
@@ -30,6 +32,8 @@ auth.onAuthStateChanged(
       app.use(store);
       app.use(router);
       app.use(VeeValidatePlugin);
+
+      app.use(GlobalComponents);
 
       app.directive('icon', icon);
 

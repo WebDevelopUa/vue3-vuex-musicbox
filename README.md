@@ -28,6 +28,7 @@ Vue v3 Music Box Web App
 * [Howler.js](https://howlerjs.com) 2.2.3
 * [Vue I18n](https://vue-i18n.intlify.dev) Plugin 2.3.1
 * [PWA plugin](https://cli.vuejs.org/ru/core-plugins/pwa.html) 4.5.15
+* [lodash](https://lodash.com/docs/) 4.17.15
 
 ------------
 
@@ -753,6 +754,17 @@ module.exports = {
 7. Browser Dev Tools => App => Storage => Clear site data
 8. Browser Dev Tools => App => Cache Storage
 9. Firebase [config](src/includes/firebase.js) => `db.enablePersistence();` (keep copy of DB on a users' browser)
+
+-------------------------
+
+## Optimization
+
+Help Webpack to register global components
+
+1. Create generic Component [base](src/components/base) to store global components
+2. Create [Button.vue](src/components/base/GlobalButton.vue)
+3. Create [_globals.js](src/includes/_globals.js)
+4. Import [main.js](src/main.js) => `import GlobalComponents from './includes/_globals';` => `app.use(GlobalComponents);`
 
 -------------------------
 -------------------------
