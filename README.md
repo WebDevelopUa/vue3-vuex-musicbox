@@ -752,6 +752,7 @@ module.exports = {
 6. Browser Dev Tools => App => Service Workers
 7. Browser Dev Tools => App => Storage => Clear site data
 8. Browser Dev Tools => App => Cache Storage
+9. Firebase [config](src/includes/firebase.js) => `db.enablePersistence();` (keep copy of DB on a users' browser)
 
 -------------------------
 -------------------------

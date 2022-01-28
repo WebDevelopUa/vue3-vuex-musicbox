@@ -22,6 +22,12 @@ const auth = firebase.auth();
 
 // Firestore Service (name, country, etc.)
 const db = firebase.firestore();
+
+// enable data caching / keep copy of DB on a users browser
+db.enablePersistence().catch((error) => {
+  console.log(`Firebase persistence error: ${error.code}`)
+});
+
 const usersCollection = db.collection('users');
 const songsCollection = db.collection('songs');
 const commentsCollection = db.collection('comments');
