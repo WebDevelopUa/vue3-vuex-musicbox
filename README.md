@@ -824,6 +824,28 @@ beforeRouteEnter(to, from, next)
 }
 ```
 
+#### Reduce bundle size / Webpack chunks
+
+1. Vue ui => Task => Analyzer => Chunks
+2. Edit router [index.js](src/router/index.js)
+
+```javascript
+import Home from '@/views/Home.vue';
+import About from '@/views/AboutUs.vue';
+import Manage from '@/views/Manage.vue';
+import store from '@/store';
+import Song from '@/views/Song.vue';
+```
+
+3. Load Components if it needed:
+
+```javascript
+const Home = () => import( '@/views/Home.vue');
+const About = () => import('@/views/AboutUs.vue');
+const Manage = () => import('@/views/Manage.vue');
+const Song = () => import('@/views/Song.vue');
+```
+
 -------------------------
 -------------------------
 

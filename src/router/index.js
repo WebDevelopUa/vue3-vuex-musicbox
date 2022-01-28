@@ -3,12 +3,12 @@ import {
   createRouter,
   createWebHistory,
 } from 'vue-router';
-
-import Home from '@/views/Home.vue';
-import About from '@/views/AboutUs.vue';
-import Manage from '@/views/Manage.vue';
 import store from '@/store';
-import Song from '@/views/Song.vue';
+
+const Home = () => import('@/views/Home.vue');
+const About = () => import('@/views/AboutUs.vue');
+const Manage = () => import('@/views/Manage.vue');
+const Song = () => import('@/views/Song.vue');
 
 const routes = [
   {
