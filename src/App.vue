@@ -1,36 +1,35 @@
 <template>
 
+  <!-- Auth modal -->
+  <Auth/>
+
   <AppHeader/>
 
   <!-- global plugin register component associated with a path -->
-  <router-view v-slot="{Component}">
-    <Transition name="fade" mode="out-in">
-      <Component :is="Component"></Component>
-    </Transition>
-  </router-view>
+    <router-view v-slot="{Component}">
+      <Transition name="fade" mode="out-in">
+        <Component :is="Component"></Component>
+      </Transition>
+    </router-view>
 
   <!-- Player -->
-  <AppPlayer/>
-
-  <!-- Auth modal -->
-  <Auth/>
+    <AppPlayer/>
 
 </template>
 <script>
 
-import AppHeader from '@/components/Header.vue';
 import Auth from '@/components/Auth.vue';
+import AppHeader from '@/components/Header.vue';
 import AppPlayer from '@/components/Player.vue';
 
 export default {
   name: 'App',
   components: {
-    AppPlayer,
     Auth,
     AppHeader,
+    AppPlayer,
   },
   created() {
-    console.log('created() {}');
     this.$store.dispatch('initLogin');
   },
 };

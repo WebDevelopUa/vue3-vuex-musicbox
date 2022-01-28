@@ -7,6 +7,8 @@ Vue v3 Music Box Web App
 
 ### [PWA manifest](https://vue3-vuex-musicbox.vercel.app/manifest.json)
 
+### [Vue.js devtools 6.0.0 beta 21](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg)
+
 ------------
 
 ### Prerequisites:
@@ -764,7 +766,8 @@ Help Webpack to register global components
 1. Create generic Component [base](src/components/base) to store global components
 2. Create [Button.vue](src/components/base/GlobalButton.vue)
 3. Create [_globals.js](src/includes/_globals.js)
-4. Import [main.js](src/main.js) => `import GlobalComponents from './includes/_globals';` => `app.use(GlobalComponents);`
+4. Import [main.js](src/main.js) => `import GlobalComponents from './includes/_globals';`
+   => `app.use(GlobalComponents);`
 
 -------------------------
 -------------------------

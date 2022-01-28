@@ -142,7 +142,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(['userLoggedIn']),
+    // ...mapState(['userLoggedIn']),
+    ...mapState({
+      userLoggedIn: (state) => state.auth.userLoggedIn,
+    }),
+
     sortedComments() {
       // slice() creates new array (copy) to sort()
       return this.comments.slice().sort(

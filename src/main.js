@@ -1,11 +1,15 @@
-import { createApp } from 'vue';
+import {
+  createApp,
+} from 'vue';
 import VueGtag from 'vue-gtag-next';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import VeeValidatePlugin from './includes/validation';
 
-import { auth } from './includes/firebase';
+import {
+  auth,
+} from './includes/firebase';
 
 import './assets/tailwind.css';
 import './assets/main.css';

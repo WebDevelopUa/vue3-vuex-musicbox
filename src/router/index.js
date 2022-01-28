@@ -1,8 +1,11 @@
 // vue ui => configuration => Vue CLI => Public path => update
-import { createRouter, createWebHistory } from 'vue-router';
+import {
+  createRouter,
+  createWebHistory,
+} from 'vue-router';
 
 import Home from '@/views/Home.vue';
-import About from '@/views/About.vue';
+import About from '@/views/AboutUs.vue';
 import Manage from '@/views/Manage.vue';
 import store from '@/store';
 import Song from '@/views/Song.vue';
@@ -64,7 +67,7 @@ router.beforeEach(
       return;
     }
 
-    if (store.state.userLoggedIn) {
+    if (store.state.auth.userLoggedIn) {
       next();
     } else {
       next({ name: 'home' });

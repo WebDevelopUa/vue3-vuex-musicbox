@@ -27,7 +27,7 @@
           <li v-if="!userLoggedIn">
             <!-- Open modal dialog window   -->
             <a class="px-2 text-white"
-               @click.prevent="toggleAuthModal"
+               @click.prevent="toggleAuthModal()"
                href="#">
               Login / Register
             </a>
@@ -72,14 +72,17 @@
 <script>
 
 import {
-  mapMutations,
   mapState,
+  mapMutations,
 } from 'vuex';
 
 export default {
   name: 'Header',
   computed: {
-    ...mapState(['userLoggedIn']),
+    // ...mapState(['userLoggedIn']),
+    ...mapState({
+      userLoggedIn: (state) => state.auth.userLoggedIn,
+    }),
 
     currentLocale() {
       return this.$i18n.locale === 'ru' ? 'Russian' : 'English';

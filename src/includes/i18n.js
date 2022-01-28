@@ -1,6 +1,10 @@
+// import {
+//   createI18n,
+// } from 'vue-i18n';
+
 import {
   createI18n,
-} from 'vue-i18n';
+} from 'vue-i18n/index';
 
 /**
  * Load locale messages

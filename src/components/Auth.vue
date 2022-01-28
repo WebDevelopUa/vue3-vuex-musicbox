@@ -2,7 +2,7 @@
   <!-- Modal window class 'hidden' -->
   <!--  :class="{hidden: !authModalShow}"-->
   <div class="fixed z-10 inset-0 overflow-y-auto"
-       :class="{hidden: !modal}"
+       :class="{ hidden: !authModalShow }"
        id="modal">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center
       sm:block sm:p-0">
@@ -70,9 +70,10 @@
 <script>
 
 import {
-  mapMutations,
   mapState,
+  mapMutations,
 } from 'vuex';
+
 import LoginModalForm from '@/components/LoginModalForm.vue';
 import RegisterModalForm from '@/components/RegisterModalForm.vue';
 
@@ -84,7 +85,10 @@ export default {
   },
   data() {
     return {
-      tab: ['login', 'register'],
+      tab: [
+        'login',
+        'register',
+      ],
     };
   },
   computed: {
@@ -96,12 +100,19 @@ export default {
     // replaced with alias 'modal'
     // ...mapState(['authModalShow']),
 
+    // ...mapState({
+    //   modal: 'authModalShow',
+    // }),
+
     ...mapState({
-      modal: 'authModalShow',
+      authModalShow: (state) => state.auth.authModalShow,
     }),
+
   },
   methods: {
-    ...mapMutations(['toggleAuthModal']),
+    ...mapMutations([
+      'toggleAuthModal',
+    ]),
     // no 'v-model' to bind values of inputs fields, vee-validate instead
   },
 };
