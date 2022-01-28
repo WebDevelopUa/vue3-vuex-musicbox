@@ -88,8 +88,24 @@ export default {
 
       files.forEach(
         (file) => {
+          // check if upload file mpeg or mp4
           if ((file.type !== 'audio/mpeg') && (file.type !== 'video/mp4')) {
             console.log('File Type error:', file.type);
+            return;
+          }
+
+          // check if device is online / reject upload if offline
+          if (!navigator.onLine) {
+            this.uploads.push(
+              {
+                task: {},
+                currentProgress: 100,
+                name: file.name,
+                variant: 'bg-red-400',
+                icon: 'fas fa-times',
+                textClass: 'text-red-400',
+              },
+            );
             return;
           }
 

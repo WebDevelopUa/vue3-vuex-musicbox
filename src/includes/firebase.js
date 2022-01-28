@@ -25,7 +25,7 @@ const db = firebase.firestore();
 
 // enable data caching / keep copy of DB on a users browser
 db.enablePersistence().catch((error) => {
-  console.log(`Firebase persistence error: ${error.code}`)
+  console.log(`Firebase persistence error: ${error.code}`);
 });
 
 const usersCollection = db.collection('users');
