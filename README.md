@@ -862,27 +862,33 @@ const Song = () => import(/* webpackChunkName: "groupedChunk" */'@/views/Song.vu
 import NProgress from 'nprogress';
 
 export default (router) => {
-  router.beforeEach(
-          (to, from, next) => {
+    router.beforeEach(
+        (to, from, next) => {
             NProgress.start();
             next();
-          },
-  );
+        },
+    );
 
-  router.afterEach(
-          NProgress.done,
-  );
+    router.afterEach(
+        NProgress.done,
+    );
 };
 
 ```
 
 * [main.js](src/main.js)
+
 ```javascript
 import ProgressBarr from './includes/progress-bar';
 import 'nprogress/nprogress.css';
 
 ProgressBarr(router);
 ```
+
+6. Code coverage tool
+
+* Dev Tools => Console => :... => Coverage => app.js:formatted
+* http://localhost:8080/js/app.js
 
 -------------------------
 -------------------------
