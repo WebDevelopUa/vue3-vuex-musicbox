@@ -96,16 +96,15 @@ export default {
 
           // check if device is online / reject upload if offline
           if (!navigator.onLine) {
-            this.uploads.push(
-              {
-                task: {},
-                currentProgress: 100,
-                name: file.name,
-                variant: 'bg-red-400',
-                icon: 'fas fa-times',
-                textClass: 'text-red-400',
-              },
-            );
+            console.log('reject upload if offline');
+            this.uploads.push({
+              task: {},
+              currentProgress: 100,
+              name: file.name,
+              variant: 'bg-red-400',
+              icon: 'fas fa-times',
+              textClass: 'text-red-400',
+            });
             return;
           }
 
