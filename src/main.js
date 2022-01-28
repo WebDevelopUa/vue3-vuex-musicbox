@@ -19,6 +19,11 @@ import './registerServiceWorker';
 
 import GlobalComponents from './includes/_globals';
 
+import ProgressBarr from './includes/progress-bar';
+import 'nprogress/nprogress.css';
+
+ProgressBarr(router);
+
 // 1. Check the User Authenticated (load Firebase) before Vue App starts
 
 // Firebase receiving the event is User logged in

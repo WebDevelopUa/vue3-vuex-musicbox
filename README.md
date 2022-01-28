@@ -853,6 +853,37 @@ const Manage = () => import(/* webpackChunkName: "groupedChunk" */'@/views/Manag
 const Song = () => import(/* webpackChunkName: "groupedChunk" */'@/views/Song.vue');
 ```
 
+5. [NProgress.js](https://ricostacruz.com/nprogress/)
+
+* [Dependencies](http://localhost:8000/dependencies) => Add => NProgress
+* [progress-bar.js](src/includes/progress-bar.js)
+
+```javascript
+import NProgress from 'nprogress';
+
+export default (router) => {
+  router.beforeEach(
+          (to, from, next) => {
+            NProgress.start();
+            next();
+          },
+  );
+
+  router.afterEach(
+          NProgress.done,
+  );
+};
+
+```
+
+* [main.js](src/main.js)
+```javascript
+import ProgressBarr from './includes/progress-bar';
+import 'nprogress/nprogress.css';
+
+ProgressBarr(router);
+```
+
 -------------------------
 -------------------------
 
