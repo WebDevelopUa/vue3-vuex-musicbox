@@ -769,6 +769,61 @@ Help Webpack to register global components
 4. Import [main.js](src/main.js) => `import GlobalComponents from './includes/_globals';`
    => `app.use(GlobalComponents);`
 
+#### Perceived Performance
+
+1. Open [song](https://vue3-vuex-musicbox.vercel.app/song/c7EZEZoCX2TpcGRlZEYK)
+2. Dev Tools => Network => Slow 3G
+3. Edit [Song.vue](src/views/Song.vue), replace:
+
+```javascript
+async
+created()
+{
+    const docSnapshot = await songsCollection.doc(this.$route.params.id).get();
+
+    if (!docSnapshot.exists) {
+        this.$router.push({name: 'home'});
+        return;
+    }
+
+    // update sort comments using Query params
+    const {sort} = this.$route.query;
+    this.sort = sort === '1' || sort === '2' ? sort : '1';
+
+    this.song = docSnapshot.data();
+
+    // retrieve comments
+    await this.getComments();
+}
+
+```
+
+to
+
+```javascript
+  async
+beforeRouteEnter(to, from, next)
+{
+    const docSnapshot = await songsCollection.doc(to.params.id).get();
+
+    next((vm) => {
+        if (!docSnapshot.exists) {
+            vm.$router.push({name: 'home'});
+            return;
+        }
+
+        const {sort} = vm.$route.query;
+
+        // eslint-disable-next-line no-param-reassign
+        vm.sort = sort === '1' || sort === '2' ? sort : '1';
+
+        // eslint-disable-next-line no-param-reassign
+        vm.song = docSnapshot.data();
+        vm.getComments();
+    })
+}
+```
+
 -------------------------
 -------------------------
 
