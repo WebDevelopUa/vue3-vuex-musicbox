@@ -47,9 +47,8 @@
 
             <!-- Inner Progress Bar -->
             <div :style="{ width: upload.currentProgress + '%'}"
-                 :class="'bg-blue-400'"
+                 :class="upload.variant"
                  class="transition-all progress-bar">
-
             </div>
           </div>
 
